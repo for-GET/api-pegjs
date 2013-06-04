@@ -14,39 +14,40 @@ apiPEG.module.parser input
 where `module.parser` can be
 
 * http
-  * version
-  * method
-  * start_line
   * header_field
-  * status_line
+  * message
+  * method
+  * request_line
+  * request_target
   * status_code
-  * date
+  * status_line
+  * version
 * httpHeader
-  * Tranfer_Encoding
-  * TE
-  * Host
-  * Via
-  * Connection
-  * Upgrade
-  * Content_Type
-  * Content_Encoding
-  * Content_Language
-  * Content_Location
-  * Expect
-  * Max_Forwards
   * Accept
   * Accept_Charset
   * Accept_Encoding
   * Accept_Language
-  * From
-  * Referer
-  * User_Agent
-  * Date
-  * Location
-  * Retry_After
-  * Vary
   * Allow
+  * Connection
+  * Content_Encoding
+  * Content_Language
+  * Content_Location
+  * Content_Type
+  * Date
+  * Expect
+  * From
+  * Host
+  * Location
+  * Max_Forwards
+  * Referer
+  * Retry_After
   * Server
+  * TE
+  * Tranfer_Encoding
+  * Upgrade
+  * User_Agent
+  * Vary
+  * Via
 * uri
 * media_type
 * charset
