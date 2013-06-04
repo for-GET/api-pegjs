@@ -1,0 +1,4 @@
+*.coffee
+/test*
+/Makefile
+/.travis.yml

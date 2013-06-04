@@ -1,0 +1,12 @@
+framework: mocha
+src_files:
+- "./*.coffee"
+- "./src/*.coffee"
+launchers:
+  Mocha:
+    command: mocha test
+    protocol: tap
+launch_in_dev:
+- Mocha
+launch_in_ci:
+- Mocha

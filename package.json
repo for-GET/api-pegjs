@@ -1,0 +1,41 @@
+{
+  "name": "http-pegjs",
+  "version": "0.0.1",
+  "author": "Andrei Neculau <@andreineculau>",
+  "description": "API PEGjs (HTTP, methods, headers, media-type, etc)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/andreineculau/api-pegjs.git"
+  },
+  "keywords": [
+    "PEG",
+    "RFC",
+    "ISO",
+    "ABNF",
+    "HTTP",
+    "API",
+    "methods",
+    "headers",
+    "media-type",
+    "date",
+    "time"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": "~0.8"
+  },
+  "dependencies": {
+    "core-pegjs": "~0.0.5",
+    "pegjs-override-action": "~0.0.4"
+  },
+  "devDependencies": {
+    "pegjs": "git://github.com/andreineculau/pegjs.git#master",
+    "testem": "~0.2.70",
+    "mocha": "~1.8.1",
+    "chai": "~1.5.0",
+    "growl": "~1.7.0"
+  },
+  "scripts": {
+    "prepublish": "make prepublish"
+  }
+}
