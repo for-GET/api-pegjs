@@ -1,5 +1,4 @@
 misc = require './misc'
-
 PEG = require('core-pegjs')['RFC/httpbis_p1']
 
 
@@ -18,45 +17,53 @@ allowedStartRules =
 rules =
   HTTP_version: () ->
     {
-      type: 'version'
-      major: $result[2]
-      minor: $result[4]
+      __type: 'version'
+      major: __result[2]
+      minor: __result[4]
     }
 
   HTTP_message: () ->
-    line = $result[0]
+    line = __result[0]
     subtype = 'request'
-    subtype = 'response'  if line is 'response_line'
+    subtype = 'response'  if line.__type is 'response_line'
 
     message = {
-      type: 'message'
+      __type: 'message'
       subtype
       line
-      headers: $result[2]
-      body: $result[4]
+      headers: __result[2]
+      body: __result[4]
     }
 
   request_line: () ->
     {
-      type: 'request_line'
-      method: $result[0]
-      target: $result[2]
-      version: $result[4]
+      __type: 'request_line'
+      method: __result[0]
+      target: __result[2]
+      version: __result[4]
     }
+
+  # method
+
+  # request_target
 
   status_line: () ->
     {
-      type: 'response_line'
-      version: $result[0]
-      status_code: $result[2]
-      reason_phrase: $result[4]
+      __type: 'response_line'
+      version: __result[0]
+      status_code: __result[2]
+      reason_phrase: __result[4]
     }
+
+  # status_code
+
+  # reason_phrase
 
   header_field: () ->
     {
-      type: 'header'
-      name: $result[0]
-      value: $result[3]
+      __type: 'header'
+      name: __result[0]
+      value: __result[3]
     }
 
 
