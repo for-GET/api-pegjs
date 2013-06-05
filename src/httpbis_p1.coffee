@@ -3,15 +3,16 @@ PEG = require('core-pegjs')['RFC/httpbis_p1']
 
 
 allowedStartRules =
-  HTTP_version: 'version'
+  # 'Connection'
   HTTP_message: 'message'
-  request_line: null
-  method: null
-  request_target: null
-  status_line: 'response_line'
-  status_code: null
-  reason_phrase: null
+  HTTP_version: 'version'
   header_field: 'header'
+  method: null
+  reason_phrase: null
+  request_line: null
+  request_target: null
+  status_code: null
+  status_line: 'response_line'
 
 
 rules =
