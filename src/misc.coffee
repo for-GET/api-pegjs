@@ -18,13 +18,18 @@ exports.buildParser = (PEG, rules, startRules = []) ->
   parser = {}
 
   for rule, alias of startRules
-    if typeof alias is 'number'
-      alias = rule
-    else
-      alias ?= rule
+    rule = alias  if Array.isArray startRules
+    alias ?= rule
     parser[alias] = do () ->
       startRule = rule
       (input) ->
         parse input, {startRule}
 
   parser
+
+
+exports.funToString = (fun) ->
+  fun = fun.toString()
+  bodyStarts = fun.indexOf('{') + 1
+  bodyEnds = fun.lastIndexOf '}'
+  fun.substring bodyStarts, bodyEnds
