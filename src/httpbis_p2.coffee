@@ -1,4 +1,4 @@
-misc = require './misc'
+{_, buildParser, funToString} = require './misc'
 PEG = require('core-pegjs')['RFC/httpbis_p2']
 
 zeroOrMore = (__type) ->
@@ -10,7 +10,7 @@ zeroOrMore = (__type) ->
       __type: "{{__type}}"
       value
     }
-  misc.funToString(fun).replace '{{__type}}', __type
+  funToString(fun).replace '{{__type}}', __type
 
 
 oneOrMore = (__type) ->
@@ -23,7 +23,7 @@ oneOrMore = (__type) ->
       __type: "{{__type}}"
       value
     }
-  misc.funToString(fun).replace '{{__type}}', __type
+  funToString(fun).replace '{{__type}}', __type
 
 
 allowedStartRules = [
@@ -201,7 +201,11 @@ rules =
   # FIXME From
 
 
-  # FIXME Referer
+  Referer: () ->
+    {
+      __type: 'Referer'
+      value: __result
+    }
 
 
   # FIXME User_Agent
@@ -213,19 +217,38 @@ rules =
   # FIXME Date
 
 
-  # FIXME Location
+  Location: () ->
+    {
+      __type: 'Location'
+      value: __result
+    }
 
 
   # FIXME Retry_After
 
 
-  # FIXME Vary
+  Vary: [
+    () ->
+      {
+        __type: 'Vary'
+        field_name: "*"
+      }
+    oneOrMore 'Vary'
+  ]
 
 
-  # FIXME Allow
+  Allow: oneOrMore 'Allow'
 
 
   # FIXME Server
 
 
-module.exports = misc.buildParser PEG, rules, allowedStartRules
+rules = _.assign(
+  {},
+  require('./httpbis_p1').rules,
+  rules
+)
+
+module.exports = buildParser PEG, rules, allowedStartRules
+module.exports.allowedStartRules = allowedStartRules
+module.exports.rules = rules

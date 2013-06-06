@@ -1,4 +1,4 @@
-misc = require './misc'
+{_, buildParser} = require './misc'
 PEG = require('core-pegjs')['RFC/httpbis_p1']
 
 
@@ -22,6 +22,15 @@ rules =
       major: __result[2]
       minor: __result[4]
     }
+
+
+  partial_uri: () ->
+    {
+      __type: 'partial_uri'
+      relative_part: __result[0]
+      query: __result[1]?[1]
+    }
+
 
   HTTP_message: () ->
     line = __result[0]
@@ -68,4 +77,11 @@ rules =
     }
 
 
-module.exports = misc.buildParser PEG, rules, allowedStartRules
+rules = _.assign(
+  {},
+  require('./3986_uri').rules,
+  rules
+)
+module.exports = buildParser PEG, rules, allowedStartRules
+module.exports.allowedStartRules = allowedStartRules
+module.exports.rules = rules
