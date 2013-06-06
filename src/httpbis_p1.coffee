@@ -8,13 +8,13 @@ PEG = require('core-pegjs')['RFC/httpbis_p1']
 
 
 allowedStartRules = [
-  # Host
-  # Host
   # TE
-  # Transfer_Encoding
-  # Via
   'Connection'
+  'Host'
+  'Trailer'
+  'Transfer_Encoding'
   'Upgrade'
+  'Via'
   'method'
   'reason_phrase'
   'request_line'
@@ -70,15 +70,6 @@ rules =
   # method
 
 
-  # Trailer
-
-
-  # TE
-
-
-  # request_target
-
-
   status_line: () ->
     {
       __type: 'response_line'
@@ -109,19 +100,79 @@ rules =
     }
 
 
-  # Transfer_Encoding
+  Transfer_Encoding: oneOrMore 'Transfer_Encoding'
 
 
-  # Trailer
+  transfer_extension: () ->
+    parameters = __result[2] or []
+    parameters = parameters.map (parameter) -> parameter[3]
+    {
+      __type: 'transfer_extension'
+      name: __result[0]
+      parameters
+    }
+
+
+  transfer_parameter: () ->
+    {
+      __type: 'transfer_parameter'
+      attribute: __result[0]
+      value: __result[4]
+    }
+
+
+  Trailer: oneOrMore 'Trailer'
 
 
   # TE
 
 
-  # Host
+  # request_target
 
 
-  # Via
+  Host: () ->
+    {
+      __type: 'Host'
+      hostname: __result[0]
+      port: __result[1]?[1]
+    }
+
+
+  Via: oneOrMore 'Via'
+
+
+  Via_item_: () ->
+    {
+      protocol: __result[0]
+      received_by: __result[2]
+      comment: __result[3]?[1]
+    }
+
+
+  received_protocol: () ->
+    {
+      __type: 'received_protocol'
+      name: __result[0]?[0]
+      version: __result[1]
+    }
+
+
+  received_by: [
+    () ->
+      {
+        __type: 'received_by'
+        hostname: __result[0]
+        port: __result[1]?[1]
+      }
+    () -> __result
+  ]
+
+
+  pseudonym: () ->
+    {
+      __type: 'pseudonym'
+      value: __result
+    }
 
 
   Connection: oneOrMore 'Conection'
