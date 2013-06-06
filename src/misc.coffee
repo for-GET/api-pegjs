@@ -1,6 +1,11 @@
+_ = require 'lodash'
 pegjs = require 'pegjs'
 overrideAction = require 'pegjs-override-action'
 corePEGjs = require 'core-pegjs'
+
+
+exports._ = _
+
 
 exports.buildParser = (PEG, rules, startRules = []) ->
   allowedStartRules = startRules

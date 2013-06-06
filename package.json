@@ -26,7 +26,8 @@
   },
   "dependencies": {
     "core-pegjs": "~0.0.5",
-    "pegjs-override-action": "~0.0.4"
+    "pegjs-override-action": "~0.0.4",
+    "lodash": "~1.2.1"
   },
   "devDependencies": {
     "pegjs": "git://github.com/andreineculau/pegjs.git#master",
