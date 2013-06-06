@@ -1,32 +1,14 @@
-{_, buildParser, funToString} = require './misc'
+{
+  _
+  buildParser
+  zeroOrMore
+  oneOrMore
+} = require './misc'
 PEG = require('core-pegjs')['RFC/httpbis_p2']
-
-zeroOrMore = (__type) ->
-  fun = () ->
-    value = __result[0][1] or []
-    head = __result[0][0]
-    value.unshift head  if head
-    {
-      __type: "{{__type}}"
-      value
-    }
-  funToString(fun).replace '{{__type}}', __type
-
-
-oneOrMore = (__type) ->
-  fun = () ->
-    value = __result[2] or []
-    value = value.map (item) -> item[1]
-    head = __result[1]
-    value.unshift head  if head
-    {
-      __type: "{{__type}}"
-      value
-    }
-  funToString(fun).replace '{{__type}}', __type
 
 
 allowedStartRules = [
+  # 'From'
   'Accept'
   'Accept_Charset'
   'Accept_Encoding'
@@ -36,22 +18,17 @@ allowedStartRules = [
   'Content_Language'
   'Content_Location'
   'Content_Type'
-  # 'Date'
-  # 'Expect'
-  # 'From'
-  # 'Host'
-  # 'Location'
-  # 'Max_Forwards'
+  'Date'
+  'Expect'
+  'HTTP_date'
+  'Location'
+  'Max_Forwards'
   'media_type'
   'Referer'
-  # 'Retry_After'
-  # 'Server'
-  # 'TE'
-  # 'Tranfer_Encoding'
-  # 'Upgrade'
-  # 'User_Agent'
-  # 'Vary'
-  # 'Via'
+  'Retry_After'
+  'Server'
+  'User_Agent'
+  'Vary'
 ]
 
 
@@ -123,12 +100,7 @@ rules =
 
 
   weight: () ->
-    value = __result[4]
-    return undefined  unless value
-    {
-      __type: 'weight'
-      value
-    }
+    return __result[4]
 
 
   Accept: zeroOrMore 'Accept'
@@ -208,13 +180,67 @@ rules =
     }
 
 
-  # FIXME User_Agent
+  User_Agent: () ->
+    value = __result[1] or []
+    value = value.map (item) -> item[1]
+    head = __result[0]
+    value.unshift head
+    {
+      __type: 'User_Agent'
+      value
+    }
 
 
-  # FIXME HTTP_date
+  product: () ->
+    {
+      __type: 'product'
+      name: __result[0]
+      version: __result[1]?[1]
+    }
 
 
-  # FIXME Date
+  HTTP_date: [
+    () ->
+      {
+        __type: 'HTTP_date'
+        value: __result
+      }
+    () ->
+  ]
+
+
+  Date: () ->
+    {
+      __type: 'Date'
+      date: __result
+    }
+
+
+  IMF_fixdate: () ->
+    {
+      __type: 'IMF_fixdate'
+      day_name: __result[0]
+      date: __result[3]
+      time_of_day: __result[5]
+    }
+
+
+  date1: () ->
+    {
+      __type: 'date1'
+      day: __result[0]
+      month: __result[2]
+      year: __result[4]
+    }
+
+
+  time_of_day: () ->
+    {
+      __type: 'time_of_day'
+      hour: __result[0]
+      minute: __result[2]
+      second: __result[4]
+    }
 
 
   Location: () ->
@@ -224,7 +250,18 @@ rules =
     }
 
 
-  # FIXME Retry_After
+  Retry_After: [
+    () ->
+      {
+        __type: 'Retry_After'
+        HTTP_date: __result
+      }
+    () ->
+      {
+        __type: 'Retry_After'
+        delta_seconds: __result
+      }
+  ]
 
 
   Vary: [
@@ -240,7 +277,15 @@ rules =
   Allow: oneOrMore 'Allow'
 
 
-  # FIXME Server
+  Server: () ->
+    value = __result[1] or []
+    value = value.map (item) -> item[1]
+    head = __result[0]
+    value.unshift head
+    {
+      __type: 'Server'
+      value
+    }
 
 
 rules = _.assign(
@@ -250,5 +295,3 @@ rules = _.assign(
 )
 
 module.exports = buildParser PEG, rules, allowedStartRules
-module.exports.allowedStartRules = allowedStartRules
-module.exports.rules = rules

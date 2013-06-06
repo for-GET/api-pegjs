@@ -1,18 +1,30 @@
-{_, buildParser} = require './misc'
+{
+  _
+  buildParser
+  zeroOrMore
+  oneOrMore
+} = require './misc'
 PEG = require('core-pegjs')['RFC/httpbis_p1']
 
 
-allowedStartRules =
-  # 'Connection'
-  HTTP_message: 'message'
-  HTTP_version: 'version'
-  header_field: 'header'
-  method: null
-  reason_phrase: null
-  request_line: null
-  request_target: null
-  status_code: null
-  status_line: 'response_line'
+allowedStartRules = [
+  # Host
+  # Host
+  # TE
+  # Transfer_Encoding
+  # Via
+  'Connection'
+  'Upgrade'
+  'method'
+  'reason_phrase'
+  'request_line'
+  'request_target'
+  'status_code'
+  ['HTTP_message', 'message']
+  ['HTTP_version', 'version']
+  ['header_field', 'header']
+  ['status_line', 'response_line']
+]
 
 
 rules =
@@ -45,6 +57,7 @@ rules =
       body: __result[4]
     }
 
+
   request_line: () ->
     {
       __type: 'request_line'
@@ -53,9 +66,18 @@ rules =
       version: __result[4]
     }
 
+
   # method
 
+
+  # Trailer
+
+
+  # TE
+
+
   # request_target
+
 
   status_line: () ->
     {
@@ -65,9 +87,12 @@ rules =
       reason_phrase: __result[4]
     }
 
+
   # status_code
 
+
   # reason_phrase
+
 
   header_field: () ->
     {
@@ -77,11 +102,45 @@ rules =
     }
 
 
+  comment: () ->
+    {
+      __type: 'comment'
+      value: __result[1]
+    }
+
+
+  # Transfer_Encoding
+
+
+  # Trailer
+
+
+  # TE
+
+
+  # Host
+
+
+  # Via
+
+
+  Connection: oneOrMore 'Conection'
+
+
+  Upgrade: oneOrMore 'Upgrade'
+
+
+  protocol: () ->
+    {
+      __type: 'protocol'
+      name: __result[0]
+      version: __result[1]?[1]
+    }
+
+
 rules = _.assign(
   {},
   require('./3986_uri').rules,
   rules
 )
 module.exports = buildParser PEG, rules, allowedStartRules
-module.exports.allowedStartRules = allowedStartRules
-module.exports.rules = rules
