@@ -9,7 +9,13 @@ exports._ = _
 
 exports.buildParser = (PEG, rules, startRules = []) ->
   allowedStartRules = startRules
-  allowedStartRules = Object.keys startRules  unless Array.isArray startRules
+  alias = {}
+  allowedStartRules = allowedStartRules.map (rule) ->
+    alias[rule] = rule
+    return rule  unless Array.isArray rule
+    [rule, aliasName] = rule
+    alias[rule] = aliasName
+    rule
   options = {
     allowedStartRules
     plugins: [overrideAction]
@@ -22,14 +28,14 @@ exports.buildParser = (PEG, rules, startRules = []) ->
 
   parser = {}
 
-  for rule, alias of startRules
-    rule = alias  if Array.isArray startRules
-    alias ?= rule
-    parser[alias] = do () ->
+  for rule, aliasName of alias
+    parser[aliasName] = do () ->
       startRule = rule
       (input) ->
         parse input, {startRule}
 
+  parser.allowedStartRules = allowedStartRules
+  parser.rules = rules
   parser
 
 
