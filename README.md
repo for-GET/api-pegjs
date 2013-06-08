@@ -22,32 +22,32 @@ where `module.parser` can be
   * status_code
   * status_line
   * version
-* httpHeader
-  * Accept
-  * Accept_Charset
-  * Accept_Encoding
-  * Accept_Language
-  * Allow
-  * Connection
-  * Content_Encoding
-  * Content_Language
-  * Content_Location
-  * Content_Type
-  * Date
-  * Expect
-  * From
-  * Host
-  * Location
-  * Max_Forwards
-  * Referer
-  * Retry_After
-  * Server
-  * TE
-  * Tranfer_Encoding
-  * Upgrade
-  * User_Agent
-  * Vary
-  * Via
+  * headers
+    * Accept
+    * Accept_Charset
+    * Accept_Encoding
+    * Accept_Language
+    * Allow
+    * Connection
+    * Content_Encoding
+    * Content_Language
+    * Content_Location
+    * Content_Type
+    * Date
+    * Expect
+    * From
+    * Host
+    * Location
+    * Max_Forwards
+    * Referer
+    * Retry_After
+    * Server
+    * TE
+    * Tranfer_Encoding
+    * Upgrade
+    * User_Agent
+    * Vary
+    * Via
 * uri
 * media_type
 * charset
