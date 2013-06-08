@@ -1,10 +1,11 @@
 {
   _
   buildParser
-  zeroOrMore
-  oneOrMore
 } = require './misc'
-PEG = require('core-pegjs')['RFC/httpbis_p1']
+PEG = """
+media_subtype
+  = subtype "-v" DIGIT
+"""
 
 
 allowedStartRules = [

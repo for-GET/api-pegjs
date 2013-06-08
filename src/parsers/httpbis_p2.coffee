@@ -5,6 +5,25 @@
   oneOrMore
 } = require './misc'
 PEG = require('core-pegjs')['RFC/httpbis_p2']
+PEG = """
+#{PEG}
+
+media_subtype
+  = media_subtype_entity "-v" media_subtype_version "+" media_subtype_syntax
+  / media_subtype_entity "-v" media_subtype_version
+  / media_subtype_entity "+" media_subtype_syntax
+  / media_subtype_syntax
+  / subtype
+
+media_subtype_entity
+  = $((!("-v" / "+") tchar)+)
+
+media_subtype_version
+  = $(DIGIT+)
+
+media_subtype_syntax
+  = $(ALPHA+)
+"""
 
 
 allowedStartRules = [
@@ -13,6 +32,7 @@ allowedStartRules = [
   'Accept_Charset'
   'Accept_Encoding'
   'Accept_Language'
+  'Accept_item_'
   'Allow'
   'Content_Encoding'
   'Content_Language'
@@ -29,6 +49,8 @@ allowedStartRules = [
   'Server'
   'User_Agent'
   'Vary'
+  'media_subtype'
+  'media_type'
 ]
 
 
@@ -100,7 +122,11 @@ rules =
 
 
   weight: () ->
-    return __result[4]
+    {
+      __type: 'weight'
+      attribute: 'q'
+      value:  __result[4]
+    }
 
 
   Accept: zeroOrMore 'Accept'
@@ -109,7 +135,7 @@ rules =
   Accept_item_: () ->
     {
       media_range: __result[0]
-      accept_params: __result[1]
+      accept_params: __result[1] or []
     }
 
 
@@ -286,6 +312,37 @@ rules =
       __type: 'Server'
       value
     }
+
+  media_subtype: [
+    () ->
+      {
+        __type: 'media_subtype'
+        entity: __result[0]
+        version: __result[2]
+        syntax: __result[4]
+      }
+    () ->
+      {
+        __type: 'media_subtype'
+        entity: __result[0]
+        version: __result[2]
+      }
+    () ->
+      {
+        __type: 'media_subtype'
+        entity: __result[0]
+        syntax: __result[2]
+      }
+    () ->
+      {
+        __type: 'media_subtype'
+        entity: __result
+        syntax: __result
+      }
+    () ->
+        __type: 'media_subtype'
+        entity: __result
+  ]
 
 
 rules = _.assign(
