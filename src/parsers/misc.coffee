@@ -48,8 +48,9 @@ exports.funToString = (fun) ->
 
 exports.zeroOrMore = (__type) ->
   fun = () ->
-    value = __result[0][1] or []
-    head = __result[0][0]
+    value = __result[0]?[1] or []
+    value = value.map (item) -> item[2]?[1]
+    head = __result[0]?[0]
     value.unshift head  if head
     {
       __type: "{{__type}}"
