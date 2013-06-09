@@ -7,26 +7,31 @@
 } = require '../../parsers'
 
 module.exports = class AcceptItem
-  _value: undefined
+  _ast: undefined
+  _paramSep: ';'
 
 
-  constructor: (string) ->
-    @_value = @_parse string  if string
+  constructor: (source) ->
+    if _.isString source
+      @_ast = @_parse source
+    else if source?
+      @_ast = source
+    else
+      @_ast =
+        __type: 'Accept_item_'
+        media_range:
+          __type: 'media_range'
+          type: '*'
+          subtype: '*'
+          parameters: []
+        accept_params: []
+    _.assign @_ast.media_range, @_parseSubtype @_ast.media_range.subtype
 
 
   _parse: (string) ->
     parsed = httpbis_p2.Accept_item_ string
     return  unless parsed
-    {
-      entity
-      version
-      syntax
-    } = @_parseSubtype parsed.media_range.subtype
-    _.assign parsed.media_range, {
-      entity
-      version
-      syntax
-    }
+    _.assign parsed.media_range, @_parseSubtype parsed.media_range.subtype
     parsed
 
 
@@ -39,7 +44,7 @@ module.exports = class AcceptItem
 
 
   _subtypeObjToString: (obj) ->
-    obj = _.merge {}, @_value.media_range, obj
+    obj = _.merge {}, @_ast.media_range, obj
     string = ''
     string += obj.entity  if obj.entity
     string += "-v#{obj.version}"  if obj.version?
@@ -53,14 +58,14 @@ module.exports = class AcceptItem
 
   Object.defineProperty @::, 'type',
     get: () ->
-      @_value.media_range.type
+      @_ast.media_range.type
     set: (type) ->
-      @_value.media_range.type = type
+      @_ast.media_range.type = type
 
 
   Object.defineProperty @::, 'subtype',
     get: () ->
-      @_value.media_range.subtype
+      @_ast.media_range.subtype
     set: (subtype) ->
       {
         subtype
@@ -68,7 +73,7 @@ module.exports = class AcceptItem
         version
         syntax
       } = @_parseSubtype subtype
-      _.assign @_value.media_range, {
+      _.assign @_ast.media_range, {
         subtype
         entity
         version
@@ -78,41 +83,42 @@ module.exports = class AcceptItem
 
   Object.defineProperty @::, 'entity',
     get: () ->
-      @_value.media_range.entity
+      @_ast.media_range.entity
     set: (entity) ->
-      if @_value.media_range.entity is @_value.media_range.syntax
+      if @_ast.media_range.entity is @_ast.media_range.syntax
         syntax = entity
       @subtype = {entity, syntax}
 
 
   Object.defineProperty @::, 'version',
     get: () ->
-      @_value.media_range.version
+      @_ast.media_range.version
     set: (version) ->
       @subtype = {version}
 
 
   Object.defineProperty @::, 'syntax',
     get: () ->
-      @_value.media_range.syntax
+      @_ast.media_range.syntax
     set: (syntax) ->
-      if @_value.media_range.entity is @_value.media_range.syntax
+      if @_ast.media_range.entity is @_ast.media_range.syntax
         entity = syntax
       @subtype = {entity, syntax}
 
 
   mediaParam: (attribute, value) ->
-    for parameter, index in @_value.media_range.parameters
+    for parameter, index in @_ast.media_range.parameters
       continue  unless parameter.attribute is attribute
       if value?
         return parameter.value = value
       else if value is null
-        @_value.media_range.parameters.splice index, 1
+        @_ast.media_range.parameters.splice index, 1
         return value
       else
         return parameter.value
     if value?
-      @_value.media_range.parameters.push {
+      @_ast.media_range.parameters.push {
+        __type: 'parameter'
         attribute
         value
       }
@@ -120,17 +126,18 @@ module.exports = class AcceptItem
 
 
   acceptParam: (attribute, value) ->
-    for parameter, index in @_value.accept_params
+    for parameter, index in @_ast.accept_params
       continue  unless parameter.attribute is attribute
       if value?
         return parameter.value = value
       else if value is null
-        @_value.accept_params.splice index, 1
+        @_ast.accept_params.splice index, 1
         return value
       else
         return parameter.value
     if value?
-      @_value.accept_params.push {
+      @_ast.accept_params.push {
+        __type: 'accept_ext'
         attribute
         value
       }
@@ -148,11 +155,11 @@ module.exports = class AcceptItem
       type
       subtype
       parameters
-    } = @_value.media_range
+    } = @_ast.media_range
     result = [
       "#{type}/#{subtype}"
     ]
-    parameters = parameters.concat @_value.accept_params
+    parameters = parameters.concat @_ast.accept_params
     for parameter in parameters
       {
         attribute
@@ -163,5 +170,5 @@ module.exports = class AcceptItem
       catch e
         value = "\"value\""
       result.push "#{attribute}=#{value}"
-    result = result.join ';'
+    result = result.join @_paramSep
     result
