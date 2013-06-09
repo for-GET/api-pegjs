@@ -1,13 +1,9 @@
-COFFEE := $(wildcard src/*.coffee)
+COFFEE := $(wildcard *.coffee src/*.coffee)
 JS := $(patsubst src%, lib%, $(COFFEE:.coffee=.js))
 
 .PHONY: all clean prepublish test testem
 
-all: index.js $(JS)
-
-index.js: index.coffee
-	@$(eval input := $<)
-	@coffee -c $(input)
+all: $(JS)
 
 $(JS): $(1)
 
@@ -17,7 +13,7 @@ lib/%.js: src/%.coffee
 	@coffee -pc $(input) > $(output)
 
 clean:
-	@rm -f index.js $(JS)
+	@rm -f $(JS)
 
 prepublish: clean all
 
