@@ -22,7 +22,7 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": "~0.8"
+    "node": "~0.10"
   },
   "dependencies": {
     "core-pegjs": "~0.0.5",
@@ -37,6 +37,7 @@
     "growl": "~1.7.0"
   },
   "scripts": {
-    "prepublish": "make prepublish"
+    "prepublish": "make prepublish",
+    "test": "make test"
   }
 }
