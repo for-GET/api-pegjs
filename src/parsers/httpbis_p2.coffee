@@ -134,6 +134,7 @@ rules =
 
   Accept_item_: () ->
     {
+      __type: 'Accept_item_'
       media_range: __result[0]
       accept_params: __result[1] or []
     }
