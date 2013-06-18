@@ -3,7 +3,7 @@
 A collection of PEG parsers for HTTP, API and related syntaxes
 
 
-# Parsers
+## Parsers
 
 ```coffee
 apiPEG = require 'api-pegjs'
@@ -53,6 +53,7 @@ where `module.parser` can be
 * charset
 * language
 
-# License
 
-MIT
+## License
+
+[Apache 2.0](LICENSE)
