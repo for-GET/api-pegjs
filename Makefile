@@ -1,16 +1,23 @@
-COFFEE := $(wildcard *.coffee src/*.coffee)
+define coffee-compile =
+	@$(eval input := $<)
+	@$(eval output := $@)
+	@mkdir -p `dirname $(output)`
+	@coffee -pc $(input) > $(output)
+
+COFFEE := $(wildcard *.coffee bin/*.coffee src/**/*.coffee)
 JS := $(patsubst src%, lib%, $(COFFEE:.coffee=.js))
-
-.PHONY: all clean prepublish test testem
-
-all: $(JS)
 
 $(JS): $(1)
 
+%.js: %.coffee
+	$(coffee-compile)
+
 lib/%.js: src/%.coffee
-	@$(eval input := $<)
-	@$(eval output := $@)
-	@coffee -pc $(input) > $(output)
+	$(coffee-compile)
+
+.PHONY: all clean prepublish test tap testem
+
+all: $(JS)
 
 clean:
 	@rm -f $(JS)
