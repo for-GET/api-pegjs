@@ -5,170 +5,104 @@
   httpbis_p1
   httpbis_p2
 } = require '../../parsers'
+ContentType = require './ContentType'
 
-module.exports = class AcceptItem
-  _ast: undefined
-  _paramSep: ';'
+module.exports = class AcceptItem extends ContentType
+  _ContentType: ContentType
 
 
-  constructor: (source) ->
-    if _.isString source
-      @_ast = @_parse source
-    else if source?
-      @_ast = source
-    else
-      @_ast =
-        __type: 'Accept_item_'
-        media_range:
-          __type: 'media_range'
-          type: '*'
-          subtype: '*'
-          parameters: []
-        accept_params: []
-    _.assign @_ast.media_range, @_parseSubtype @_ast.media_range.subtype
+  _defaultAst: () ->
+    {
+      __type: 'Accept_item_'
+      media_range:
+        __type: 'media_range'
+        type: '*'
+        subtype: '*'
+        parameters: []
+      accept_params: []
+    }
 
 
   _parse: (string) ->
     parsed = httpbis_p2.Accept_item_ string
     return  unless parsed
-    _.assign parsed.media_range, @_parseSubtype parsed.media_range.subtype
+    media = parsed.media_range
+    _.assign media, @_parseSubtype media.subtype
     parsed
 
 
-  _parseSubtype: (string) ->
-    string = @_subtypeObjToString string  unless _.isString string
-    parsed = httpbis_p2.media_subtype string
-    return string  unless parsed
-    parsed.subtype = string
-    parsed
-
-
-  _subtypeObjToString: (obj) ->
-    obj = _.merge {}, @_ast.media_range, obj
-    string = ''
-    string += obj.entity  if obj.entity
-    string += "-v#{obj.version}"  if obj.version?
-    if obj.syntax?
-      if obj.entity? and obj.entity isnt obj.syntax
-        string += "+#{obj.syntax}"
-      else
-        string += "#{obj.syntax}"
-    string
-
-
-  Object.defineProperty @::, 'type',
+  Object.defineProperty @::, 'media',
     get: () ->
-      @_ast.media_range.type
-    set: (type) ->
-      @_ast.media_range.type = type
+      @ast.media_range
+    set: (value) ->
+      @ast.media_range = value
 
 
-  Object.defineProperty @::, 'subtype',
+  Object.defineProperty @::, 'params',
     get: () ->
-      @_ast.media_range.subtype
-    set: (subtype) ->
-      {
-        subtype
-        entity
-        version
-        syntax
-      } = @_parseSubtype subtype
-      _.assign @_ast.media_range, {
-        subtype
-        entity
-        version
-        syntax
-      }
+      @mediaParams.concat @acceptParams
 
 
-  Object.defineProperty @::, 'entity',
+  Object.defineProperty @::, 'q',
     get: () ->
-      @_ast.media_range.entity
-    set: (entity) ->
-      if @_ast.media_range.entity is @_ast.media_range.syntax
-        syntax = entity
-      @subtype = {entity, syntax}
+      @acceptParam('q') || '1'
+    set: (value) ->
+      @acceptParam 'q', value
 
 
-  Object.defineProperty @::, 'version',
+  Object.defineProperty @::, 'acceptParams',
     get: () ->
-      @_ast.media_range.version
-    set: (version) ->
-      @subtype = {version}
-
-
-  Object.defineProperty @::, 'syntax',
-    get: () ->
-      @_ast.media_range.syntax
-    set: (syntax) ->
-      if @_ast.media_range.entity is @_ast.media_range.syntax
-        entity = syntax
-      @subtype = {entity, syntax}
-
-
-  mediaParam: (attribute, value) ->
-    for parameter, index in @_ast.media_range.parameters
-      continue  unless parameter.attribute is attribute
-      if value?
-        return parameter.value = value
-      else if value is null
-        @_ast.media_range.parameters.splice index, 1
-        return value
-      else
-        return parameter.value
-    if value?
-      @_ast.media_range.parameters.push {
-        __type: 'parameter'
-        attribute
-        value
-      }
-    undefined
+      @ast.accept_params
+    set: (value) ->
+      @ast.accept_params = value
 
 
   acceptParam: (attribute, value) ->
-    for parameter, index in @_ast.accept_params
-      continue  unless parameter.attribute is attribute
+    for param, index in @acceptParams
+      continue  unless param.attribute is attribute
       if value?
-        return parameter.value = value
+        return param.value = value
       else if value is null
-        @_ast.accept_params.splice index, 1
+        @acceptParams.splice index, 1
         return value
       else
-        return parameter.value
+        return param.value
     if value?
-      @_ast.accept_params.push {
+      ast = {
         __type: 'accept_ext'
         attribute
         value
       }
+      if attribute is 'q'
+        return @acceptParams.shift ast
+      else
+        return @acceptParams.push ast
     undefined
 
 
-  prefers: (AcceptItem) ->
+  matches: (ContentType) ->
+    ContentType = new @_ContentType ContentType  unless ContentType instanceof @_ContentType
 
+    # Count weight
+    score = @q * 100000
 
-  matches: (AcceptItem) ->
+    # Count type
+    return false  unless @type in ['*', ContentType.type]
+    score += 1000
 
+    # Count subtype
+    return false  unless @subtype in ['*', ContentType.subtype]
+    score += 100
 
-  toString: () ->
-    {
-      type
-      subtype
-      parameters
-    } = @_ast.media_range
-    result = [
-      "#{type}/#{subtype}"
-    ]
-    parameters = parameters.concat @_ast.accept_params
-    for parameter in parameters
-      {
-        attribute
-        value
-      } = parameter
-      try
-        httpbis_p1.token value
-      catch e
-        value = "\"value\""
-      result.push "#{attribute}=#{value}"
-    result = result.join @_paramSep
-    result
+    # Accept more specific media-types than the range
+    subset = @mediaParams.length < ContentType.mediaParams.length
+    return false  unless subset or @mediaParams.length is ContentType.mediaParams.length
+
+    # Count specificity
+    score += ContentType.mediaParams.length - @mediaParams.length
+    for param in @mediaParams
+      itemParam = _.first _.filter ContentType.params, param
+      return false  unless itemParam?
+      score += 1
+
+    score
