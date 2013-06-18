@@ -1,4 +1,1 @@
-*.coffee
-/test*
-/Makefile
-/.travis.yml
+.coffee.mk/.npmignore

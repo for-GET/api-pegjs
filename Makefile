@@ -1,34 +1,12 @@
-define coffee-compile =
-	@$(eval input := $<)
-	@$(eval output := $@)
-	@mkdir -p `dirname $(output)`
-	@coffee -pc $(input) > $(output)
+# Default
+.PHONY: all
 
-COFFEE := $(wildcard *.coffee bin/*.coffee src/**/*.coffee)
-JS := $(patsubst src%, lib%, $(COFFEE:.coffee=.js))
+all: force
+	@$(MAKE) -f .coffee.mk/coffee.mk $@
 
-$(JS): $(1)
+%: force
+	@$(MAKE) -f .coffee.mk/coffee.mk $@
 
-%.js: %.coffee
-	$(coffee-compile)
+force: ;
 
-lib/%.js: src/%.coffee
-	$(coffee-compile)
-
-.PHONY: all clean prepublish test tap testem
-
-all: $(JS)
-
-clean:
-	@rm -f $(JS)
-
-prepublish: clean all
-
-test:
-	@mocha --reporter spec test
-
-tap:
-	@testem ci
-
-testem:
-	@testem
+# Custom
