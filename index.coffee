@@ -18,4 +18,4 @@ prefix = './lib'
 prefix = './src'  if /.coffee$/.test module.filename
 mappingFun(prefix) module.exports, key, value  for key, value of module.exports
 
-module.exports.parser = require './src/parsers'
+module.exports.parser = require "#{prefix}/parsers"
