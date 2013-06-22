@@ -15,7 +15,6 @@
     "time"
   ],
   "version": "0.0.1",
-  "author": "Andrei Neculau <@andreineculau>",
   "repository": {
     "type": "git",
     "url": "git://github.com/andreineculau/api-pegjs.git"
