@@ -17,10 +17,11 @@ module.exports = class AbstractBase extends SuperObject
 
 
   _defaultAst: () ->
-
+    {}
 
   _parse: (string) ->
     @_parser string
 
 
   toString: () ->
+    @ast.toString()

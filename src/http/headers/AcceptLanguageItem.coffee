@@ -16,9 +16,6 @@ module.exports = class AcceptLanguageItem extends Language
     }
 
 
-  _parseSubtype: (string) ->
-
-
   Object.defineProperty @::, 'media',
     get: () ->
       @ast.media_range

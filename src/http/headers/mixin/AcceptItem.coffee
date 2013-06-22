@@ -5,9 +5,6 @@ module.exports = class MixinAcceptItem extends AbstractBase
   _ItemClass: undefined
 
 
-  _defaultAst: () ->
-
-
   _parse: (string) ->
     parsed = super
     return  unless parsed
