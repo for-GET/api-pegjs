@@ -3,6 +3,7 @@ path = require 'path'
 module.exports =
   http:
     headers:
+      Accept: 1
       AcceptItem: 1
 
 mappingFun = (prefix) ->
@@ -15,6 +16,6 @@ mappingFun = (prefix) ->
 
 prefix = './lib'
 prefix = './src'  if /.coffee$/.test module.filename
-mappingFun(prefix) module.exports
+mappingFun(prefix) module.exports, key, value  for key, value of module.exports
 
 module.exports.parser = require './src/parsers'
