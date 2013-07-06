@@ -30,7 +30,7 @@
     "test": "make test"
   },
   "dependencies": {
-    "core-pegjs": "~0.0.5",
+    "core-pegjs": "~0.0.6",
     "lodash": "~1.3.1",
     "pegjs-override-action": "~0.0.4"
   },
