@@ -1,23 +1,18 @@
-{
-  _
-} = require '../../util'
+_ = require 'lodash'
 {
   httpbis_p1
   httpbis_p2
 } = require '../../parsers'
+AbstractBase = require './abstract/Base'
 
-module.exports = class ContentType
+
+module.exports = class ContentType extends AbstractBase
+  _parser: httpbis_p2.Content_Type
   _paramSep: ';'
-  ast: undefined
 
 
   constructor: (source) ->
-    if _.isString source
-      @ast = @_parse source
-    else if source?
-      @ast = source
-    else
-      @ast = @_defaultAst()
+    super
     _.assign @media, @_parseSubtype @media.subtype
 
 
@@ -33,10 +28,8 @@ module.exports = class ContentType
 
 
   _parse: (string) ->
-    parsed = httpbis_p2.Content_Type string
-    return  unless parsed
-    media = parsed.value
-    _.assign media, @_parseSubtype media.subtype
+    parsed = super
+    _.assign parsed.value, @_parseSubtype parsed.value.subtype
     parsed
 
 

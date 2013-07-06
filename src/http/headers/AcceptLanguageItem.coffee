@@ -1,27 +1,22 @@
 _ = require 'lodash'
-{
-  httpbis_p2
-} = require '../../parsers'
 MixinAcceptItem = require './mixin/AcceptItem'
-ContentType = require './ContentType'
+Language = require './Language'
 
-module.exports = class AcceptItem extends ContentType
+module.exports = class AcceptLanguageItem extends Language
   @mixin MixinAcceptItem
 
-  _parser: httpbis_p2.Accept_item_
-  _ItemClass: ContentType
+  _ItemClass: Language
 
 
   _defaultAst: () ->
     {
-      __type: 'Accept_item_'
-      media_range:
-        __type: 'media_range'
-        type: '*'
-        subtype: '*'
-        parameters: []
+      __type: 'Language'
+      tag: '*'
       accept_params: []
     }
+
+
+  _parseSubtype: (string) ->
 
 
   Object.defineProperty @::, 'media',
@@ -32,7 +27,7 @@ module.exports = class AcceptItem extends ContentType
 
 
   matches: (Item) ->
-    Item = @matchItem Item
+    Item = new @_ItemClass Item  unless Item instanceof @_ItemClass
 
     # Count weight
     score = @q * 100000
@@ -57,8 +52,3 @@ module.exports = class AcceptItem extends ContentType
       score += 1
 
     score
-
-
-  matchItem: (Item) ->
-    Item = new @_ItemClass Item  unless Item instanceof @_ItemClass
-    Item
