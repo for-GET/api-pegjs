@@ -10,7 +10,7 @@ module.exports = class AbstractBase extends SuperObject
   constructor: (source) ->
     if _.isString source
       @ast = @_parse source
-    else if source?
+    else if _.isPlainObject(source) and source.__type is @_type
       @ast = source
     else
       @ast = @_defaultAst()

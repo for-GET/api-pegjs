@@ -7,6 +7,7 @@ AbstractBase = require './abstract/Base'
 
 
 module.exports = class ContentType extends AbstractBase
+  _type: 'Content_Type'
   _parser: httpbis_p2.Content_Type
   _paramSep: ';'
 
@@ -18,7 +19,7 @@ module.exports = class ContentType extends AbstractBase
 
   _defaultAst: () ->
     {
-      __type: 'Content_Type'
+      __type: @_type
       media_type:
         __type: 'media_type'
         type: '*'

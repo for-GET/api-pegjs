@@ -4,13 +4,14 @@ Language = require './Language'
 
 module.exports = class AcceptLanguageItem extends Language
   @mixin MixinAcceptItem
+  _type: 'Language'
 
   _ItemClass: Language
 
 
   _defaultAst: () ->
     {
-      __type: 'Language'
+      __type: @_type
       tag: '*'
       accept_params: []
     }
