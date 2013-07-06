@@ -1,5 +1,5 @@
 _ = require 'lodash'
-AbstractBase = require '../abstract/Base.coffee'
+AbstractBase = require '../abstract/Base'
 
 module.exports = class MixinAcceptItem extends AbstractBase
   _ItemClass: undefined

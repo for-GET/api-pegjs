@@ -3,7 +3,7 @@
 } = require '../../parsers'
 AcceptItem = require './AcceptItem'
 MixinAccept = require './mixin/Accept'
-AbstractBase = require './abstract/Base.coffee'
+AbstractBase = require './abstract/Base'
 
 module.exports = class Accept extends AbstractBase
   @mixin MixinAccept
