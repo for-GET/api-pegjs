@@ -7,10 +7,10 @@ ContentType = require './ContentType'
 
 module.exports = class AcceptItem extends ContentType
   @mixin MixinAcceptItem
-  _type: 'Accept_item_'
 
-  _parser: httpbis_p2.Accept_item_
   _ItemClass: ContentType
+  _parser: httpbis_p2.Accept_item_
+  _type: 'Accept_item_'
 
 
   _defaultAst: () ->

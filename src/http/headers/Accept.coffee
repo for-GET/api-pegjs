@@ -7,10 +7,10 @@ AbstractBase = require './abstract/Base'
 
 module.exports = class Accept extends AbstractBase
   @mixin MixinAccept
-  _type: 'Accept'
 
   _AcceptItemClass: AcceptItem
   _parser: httpbis_p2.Accept
+  _type: 'Accept'
 
 
   _defaultAst: () ->

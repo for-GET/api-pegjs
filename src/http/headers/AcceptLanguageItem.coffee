@@ -1,12 +1,16 @@
 _ = require 'lodash'
+{
+  httpbis_p2
+} = require '../../parsers'
 MixinAcceptItem = require './mixin/AcceptItem'
-Language = require './Language'
+ContentLanguage = require './ContentLanguage'
 
 module.exports = class AcceptLanguageItem extends Language
   @mixin MixinAcceptItem
-  _type: 'Language'
 
-  _ItemClass: Language
+  _ItemClass: ContentLanguage
+  _parser: httpbis_p2.Accept_Language_item_
+  _type: 'Accept_Language_item_'
 
 
   _defaultAst: () ->
