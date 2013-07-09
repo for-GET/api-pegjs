@@ -7,16 +7,19 @@ allowedStartRules = [
   'URI_reference'
   'authority'
   'relative_ref'
-  'absolute_uri'
+  'absolute_URI'
 ]
 
 
 rules =
   URI: () ->
+    hier_part = __result[2]
     {
       __type: 'URI'
       scheme: __result[0]
-      hier_part: __result[2]
+      slashes: hier_part.slashes
+      authority: hier_part.authority
+      path: hier_part.path
       query: __result[3]?[1]
       fragment: __result[4]?[1]
     }
@@ -58,12 +61,41 @@ rules =
 
 
   relative_ref: () ->
+    relative_part = __result[0]
     {
       __type: 'relative_ref'
-      relative_part: __result[0]
+      slashes: relative_part.slashes
+      authority: relative_part.authority
+      path: relative_part.path
       query: __result[1]?[1]
       fragment: __result[1]?[1]
     }
+
+
+  relative_part: [
+    () ->
+      {
+        __type: 'relative_part'
+        slashes: __result[0]
+        authority: __result[1]
+        path: __result[2]
+      }
+    () ->
+      {
+        __type: 'relative_part'
+        path: __result[0]
+      }
+    () ->
+      {
+        __type: 'relative_part'
+        path: __result[0]
+      }
+    () ->
+      {
+        __type: 'relative_part'
+        path: __result[0]
+      }
+  ]
 
 
   absolute_URI: () ->
