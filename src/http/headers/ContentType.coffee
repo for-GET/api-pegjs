@@ -3,7 +3,7 @@ _ = require 'lodash'
   httpbis_p1
   httpbis_p2
 } = require '../../parsers'
-AbstractBase = require './abstract/Base'
+AbstractBase = require '../../abstract/Base'
 
 
 module.exports = class ContentType extends AbstractBase
