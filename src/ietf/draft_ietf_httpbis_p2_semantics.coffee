@@ -4,7 +4,7 @@
   zeroOrMore
   oneOrMore
 } = require './misc'
-PEG = require('core-pegjs')['RFC/httpbis_p2']
+PEG = require('core-pegjs')['ietf/draft_ietf_httpbis_p2_semantics']
 PEG = """
 #{PEG}
 
@@ -348,7 +348,7 @@ rules =
 
 rules = _.assign(
   {},
-  require('./httpbis_p1').rules,
+  require('./draft_ietf_httpbis_p1_messaging').rules,
   rules
 )
 

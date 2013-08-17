@@ -1,13 +1,13 @@
 _ = require 'lodash'
 {
-  _3986_uri
-} = require './parsers'
+  rfc3986_uri
+} = require './ietf'
 AbstractBase = require './abstract/Base'
 
 
 module.exports = class URI extends AbstractBase
   _type: 'URI'
-  _parser: _3986_uri.URI
+  _parser: rfc3986_uri.URI
 
 
   _defaultAst: () ->

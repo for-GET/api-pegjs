@@ -1,9 +1,9 @@
 {
   should
 } = require '../_utils'
-cosmogol = require '../../src/parsers/cosmogol'
+cosmogol = require '../../src/ietf/draft_bortzmeyer_language_state_machines'
 
-describe 'cosmogol', () ->
+describe 'draft_bortzmeyer_language_state_machines', () ->
   describe 'basic', () ->
     fsm = """
 var1 = test;
@@ -21,7 +21,7 @@ act
 
 state1:msg -> state2:act;
 """
-    it.only 'should work', () ->
+    it 'should work', () ->
       c = cosmogol.state_machine fsm
       c.should.eql
         __type: 'state_machine'

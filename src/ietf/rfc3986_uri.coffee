@@ -1,5 +1,5 @@
 misc = require './misc'
-PEG = require('core-pegjs')['RFC/3986_uri']
+PEG = require('core-pegjs')['ietf/rfc3986_uri']
 
 
 allowedStartRules = [

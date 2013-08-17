@@ -2,7 +2,7 @@
   _
   buildParser
 } = require './misc'
-PEG = require('core-pegjs')['draft/draft-bortzmeyer-language-state-machines']
+PEG = require('core-pegjs')['ietf/draft_bortzmeyer_language_state_machines']
 
 
 allowedStartRules = [

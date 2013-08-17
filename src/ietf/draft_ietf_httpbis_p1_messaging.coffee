@@ -1,11 +1,10 @@
 {
   _
   buildParser
+  zeroOrMore
+  oneOrMore
 } = require './misc'
-PEG = """
-media_subtype
-  = subtype "-v" DIGIT
-"""
+PEG = require('core-pegjs')['ietf/draft_ietf_httpbis_p1_messaging']
 
 
 allowedStartRules = [
@@ -21,6 +20,7 @@ allowedStartRules = [
   'request_line'
   'request_target'
   'status_code'
+  'token'
   ['HTTP_message', 'message']
   ['HTTP_version', 'version']
   ['header_field', 'header']
@@ -192,7 +192,7 @@ rules =
 
 rules = _.assign(
   {},
-  require('./3986_uri').rules,
+  require('./rfc3986_uri').rules,
   rules
 )
 module.exports = buildParser PEG, rules, allowedStartRules

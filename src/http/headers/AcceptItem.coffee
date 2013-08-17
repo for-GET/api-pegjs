@@ -1,7 +1,5 @@
 _ = require 'lodash'
-{
-  httpbis_p2
-} = require '../../parsers'
+httpbis_p2 = require '../../ietf/draft_ietf_httpbis_p2_semantics'
 MixinAcceptItem = require './mixin/AcceptItem'
 ContentType = require './ContentType'
 

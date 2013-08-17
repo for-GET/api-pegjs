@@ -2,7 +2,7 @@
   _
   buildParser
 } = require './misc'
-PEG = require('core-pegjs')['RFC/5646_language']
+PEG = require('core-pegjs')['ietf/rfc5646_language']
 
 
 allowedStartRules = [

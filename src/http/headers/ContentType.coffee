@@ -1,8 +1,6 @@
 _ = require 'lodash'
-{
-  httpbis_p1
-  httpbis_p2
-} = require '../../parsers'
+httpbis_p1 = require '../../ietf/draft_ietf_httpbis_p1_messaging'
+httpbis_p2 = require '../../ietf/draft_ietf_httpbis_p2_semantics'
 AbstractBase = require '../../abstract/Base'
 
 
