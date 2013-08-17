@@ -1,7 +1,7 @@
 {
   should
 } = require '../../_utils'
-httpbis_p1 = require '../../../src/parsers/ietf/draft_ietf_httpbis_p1_messaging'
+httpbis_p1 = require '../../../src/core/ietf/draft_ietf_httpbis_p1_messaging'
 
 describe 'draft_ietf_httpbis_p1_messaging', () ->
 

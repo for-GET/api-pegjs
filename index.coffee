@@ -20,7 +20,7 @@ prefix = './lib'
 prefix = './src'  if /.coffee$/.test module.filename
 mappingFun(prefix) module.exports, key, value  for key, value of module.exports
 
-module.exports.parsers = {}
+module.exports.core = {}
 
 ext = '.js'
 ext = '.coffee'  if /.coffee$/.test module.filename
@@ -28,9 +28,9 @@ ext = '.coffee'  if /.coffee$/.test module.filename
 options =
   sync: true
 
-glob "#{__dirname}/#{prefix}/parsers/**/*#{ext}", options, (err, files) ->
+glob "#{__dirname}/#{prefix}/core/**/*#{ext}", options, (err, files) ->
   for file in files
     continue  if path.basename(file)[0] is '_'
-    mod = path.dirname path.relative "#{__dirname}/#{prefix}/parsers", file
+    mod = path.dirname path.relative "#{__dirname}/#{prefix}/core", file
     mod += '/' + path.basename file, ext
-    module.exports.parsers[mod] = require file
+    module.exports.core[mod] = require file

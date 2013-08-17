@@ -1,7 +1,7 @@
 {
   should
 } = require '../../_utils'
-uri = require '../../../src/parsers/ietf/rfc3986_uri'
+uri = require '../../../src/core/ietf/rfc3986_uri'
 
 describe '3986_uri', () ->
   describe 'URI', () ->

@@ -1,6 +1,6 @@
 _ = require 'lodash'
-httpbis_p1 = require '../../parsers/ietf/draft_ietf_httpbis_p1_messaging'
-httpbis_p2 = require '../../parsers/ietf/draft_ietf_httpbis_p2_semantics'
+httpbis_p1 = require '../../core/ietf/draft_ietf_httpbis_p1_messaging'
+httpbis_p2 = require '../../core/ietf/draft_ietf_httpbis_p2_semantics'
 AbstractBase = require '../../abstract/Base'
 
 

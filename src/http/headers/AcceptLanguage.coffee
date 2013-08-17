@@ -1,4 +1,4 @@
-httpbis_p2 = require '../../parsers/ietf/draft_ietf_httpbis_p2_semantics'
+httpbis_p2 = require '../../core/ietf/draft_ietf_httpbis_p2_semantics'
 AcceptLanguageItem = require './AcceptLanguageItem'
 MixinAccept = require './mixin/Accept'
 AbstractBase = require '../../abstract/Base'

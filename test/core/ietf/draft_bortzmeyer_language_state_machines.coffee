@@ -1,7 +1,7 @@
 {
   should
 } = require '../../_utils'
-cosmogol = require '../../../src/parsers/ietf/draft_bortzmeyer_language_state_machines'
+cosmogol = require '../../../src/core/ietf/draft_bortzmeyer_language_state_machines'
 
 describe 'draft_bortzmeyer_language_state_machines', () ->
   describe 'basic', () ->
