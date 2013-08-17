@@ -3,7 +3,7 @@
   buildParser
   zeroOrMore
   oneOrMore
-} = require './misc'
+} = require './_misc'
 PEG = require('core-pegjs')['ietf/draft_ietf_httpbis_p2_semantics']
 PEG = """
 #{PEG}

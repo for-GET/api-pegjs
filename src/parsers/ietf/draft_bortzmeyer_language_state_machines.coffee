@@ -1,7 +1,7 @@
 {
   _
   buildParser
-} = require './misc'
+} = require './_misc'
 PEG = require('core-pegjs')['ietf/draft_bortzmeyer_language_state_machines']
 
 

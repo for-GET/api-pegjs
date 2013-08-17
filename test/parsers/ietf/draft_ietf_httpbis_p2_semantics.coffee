@@ -1,7 +1,7 @@
 {
   should
-} = require '../_utils'
-httpbis_p2 = require '../../src/ietf/draft_ietf_httpbis_p2_semantics'
+} = require '../../_utils'
+httpbis_p2 = require '../../../src/parsers/ietf/draft_ietf_httpbis_p2_semantics'
 
 describe.skip 'draft_ietf_httpbis_p2_semantics', () ->
 

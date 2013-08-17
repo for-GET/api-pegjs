@@ -1,4 +1,6 @@
-misc = require './misc'
+{
+  buildParser
+} = require './_misc'
 PEG = require('core-pegjs')['ietf/rfc3986_uri']
 
 
@@ -107,6 +109,6 @@ rules =
     }
 
 
-module.exports = misc.buildParser PEG, rules, allowedStartRules
+module.exports = buildParser PEG, rules, allowedStartRules
 module.exports.allowedStartRules = allowedStartRules
 module.exports.rules = rules

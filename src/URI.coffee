@@ -1,7 +1,5 @@
 _ = require 'lodash'
-{
-  rfc3986_uri
-} = require './ietf'
+rfc3986_uri = require './parsers/ietf/rfc3986_uri'
 AbstractBase = require './abstract/Base'
 
 

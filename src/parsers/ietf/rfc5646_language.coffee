@@ -1,7 +1,7 @@
 {
   _
   buildParser
-} = require './misc'
+} = require './_misc'
 PEG = require('core-pegjs')['ietf/rfc5646_language']
 
 
