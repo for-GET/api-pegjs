@@ -23,6 +23,9 @@
     "type": "Apache-2.0",
     "url": "http://www.apache.org/licenses/LICENSE-2.0"
   }],
+  "bin": {
+    "api-pegjs-parse": "bin/parse.coffee"
+  },
   "scripts": {
     "prepublish": "make prepublish",
     "test": "make test"
@@ -44,5 +47,10 @@
     "mocha": "~1.12.0",
     "pegjs": "git://github.com/andreineculau/pegjs.git#master",
     "testem": "~0.3.18"
+  },
+  "publishConfig": {
+    "bin": {
+      "api-pegjs-parse": "bin/parse.js"
+    }
   }
 }
