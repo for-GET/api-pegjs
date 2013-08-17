@@ -37,7 +37,13 @@ describe.skip 'draft_ietf_httpbis_p2_semantics', () ->
 
   describe 'User_Agent', () ->
     it 'should parse common User-Agent headers', () ->
-      a = httpbis_p2.User_Agent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.65 Safari/537.31')
+      UA = [
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3)'
+        'AppleWebKit/537.31 (KHTML, like Gecko)'
+        'Chrome/26.0.1410.65'
+        'Safari/537.31'
+      ].join ' '
+      a = httpbis_p2.User_Agent UA
       console.error JSON.stringify a, null, 2
 
 
