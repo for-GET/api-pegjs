@@ -1,5 +1,5 @@
 {
-  "name": "http-pegjs",
+  "name": "api-pegjs",
   "description": "API PEGjs (HTTP, methods, headers, media-type, etc)",
   "keywords": [
     "PEG",
