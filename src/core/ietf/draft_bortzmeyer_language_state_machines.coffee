@@ -43,10 +43,11 @@ rules =
     names.push item[1]  for item in __result[1]
     names
 
-  name: [
-    () -> __result[1]
-    () -> __result[0]
-  ]
+  name: () ->
+    __result[0]
+
+  quoted_name: () ->
+    __result[1]
 
   transition: () ->
     {
