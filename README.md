@@ -1,6 +1,6 @@
 # API PEGjs [![Build Status][2]][1]
 
-A collection of PEG parsers for HTTP, API and related syntaxes
+A collection of PEG parsers for HTTP, API and related grammars
 
 
 ## Parsers
