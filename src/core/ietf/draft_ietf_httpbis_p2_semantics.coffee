@@ -226,14 +226,11 @@ rules =
     }
 
 
-  HTTP_date: [
-    () ->
-      {
-        __type: 'HTTP_date'
-        value: __result
-      }
-    () ->
-  ]
+  HTTP_date: () ->
+    {
+      __type: 'HTTP_date'
+      value: __result
+    }
 
 
   Date: () ->
