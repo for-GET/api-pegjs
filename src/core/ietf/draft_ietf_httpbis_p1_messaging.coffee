@@ -47,15 +47,14 @@ rules =
 
   HTTP_message: () ->
     line = __result[0]
-    subtype = 'request'
-    subtype = 'response'  if line.__type is 'response_line'
+    headers = __result[1].map (headerCRLF) -> headerCRLF[0]
+    body = __result[3]
 
     message = {
       __type: 'message'
-      subtype
       line
-      headers: __result[2]
-      body: __result[4]
+      headers
+      body
     }
 
 
