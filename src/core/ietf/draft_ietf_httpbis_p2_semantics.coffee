@@ -26,7 +26,7 @@ media_subtype_syntax
 """
 
 
-allowedStartRules = [
+startRules = [
   # 'From'
   'Accept'
   'Accept_Charset'
@@ -343,10 +343,9 @@ rules =
   ]
 
 
-rules = _.assign(
-  {},
-  require('./draft_ietf_httpbis_p1_messaging').rules,
-  rules
+rules = _.defaults(
+  rules,
+  require('./draft_ietf_httpbis_p1_messaging')._.rules
 )
 
-module.exports = buildParser PEG, rules, allowedStartRules
+module.exports = buildParser {PEG, rules, startRules}

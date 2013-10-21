@@ -7,17 +7,17 @@ corePEGjs = require 'core-pegjs'
 exports._ = _
 
 
-exports.buildParser = (PEG, rules, startRules = [], initializer) ->
-  allowedStartRules = startRules
+exports.buildParser = ({PEG, initializer, rules, startRules}) ->
+  startRules ?= []
   alias = {}
-  allowedStartRules = allowedStartRules.map (rule) ->
+  startRules = startRules.map (rule) ->
     alias[rule] = rule
     return rule  unless Array.isArray rule
     [rule, aliasName] = rule
     alias[rule] = aliasName
     rule
   options = {
-    allowedStartRules
+    startRules
     plugins: [overrideAction]
     overrideActionPlugin: {
       rules
@@ -27,7 +27,14 @@ exports.buildParser = (PEG, rules, startRules = [], initializer) ->
 
   {parse} = pegjs.buildParser PEG, options
 
-  parser = {}
+  parser = {
+    _: {
+      PEG
+      initializer
+      rules
+      startRules
+    }
+  }
 
   for rule, aliasName of alias
     parser[aliasName] = do () ->
@@ -35,8 +42,6 @@ exports.buildParser = (PEG, rules, startRules = [], initializer) ->
       (input) ->
         parse input, {startRule}
 
-  parser.allowedStartRules = allowedStartRules
-  parser.rules = rules
   parser
 
 

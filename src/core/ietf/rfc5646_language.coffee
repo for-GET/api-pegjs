@@ -5,7 +5,7 @@
 PEG = require('core-pegjs')['ietf/rfc5646_language']
 
 
-allowedStartRules = [
+startRules = [
   'language'
 ]
 
@@ -35,6 +35,4 @@ rules =
 
   extlang: () -> __result
 
-
-
-module.exports = buildParser PEG, rules, allowedStartRules
+module.exports = buildParser {PEG, rules, startRules}

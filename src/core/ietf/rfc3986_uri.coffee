@@ -4,7 +4,7 @@
 PEG = require('core-pegjs')['ietf/rfc3986_uri']
 
 
-allowedStartRules = [
+startRules = [
   'URI'
   'URI_reference'
   'authority'
@@ -109,6 +109,4 @@ rules =
     }
 
 
-module.exports = buildParser PEG, rules, allowedStartRules
-module.exports.allowedStartRules = allowedStartRules
-module.exports.rules = rules
+module.exports = buildParser {PEG, rules, startRules}

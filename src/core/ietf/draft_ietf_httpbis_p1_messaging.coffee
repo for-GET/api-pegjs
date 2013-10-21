@@ -7,7 +7,7 @@
 PEG = require('core-pegjs')['ietf/draft_ietf_httpbis_p1_messaging']
 
 
-allowedStartRules = [
+startRules = [
   # TE
   'Connection'
   'Host'
@@ -189,9 +189,8 @@ rules =
     }
 
 
-rules = _.assign(
-  {},
-  require('./rfc3986_uri').rules,
-  rules
+rules = _.defaults(
+  rules,
+  require('./rfc3986_uri')._.rules
 )
-module.exports = buildParser PEG, rules, allowedStartRules
+module.exports = buildParser {PEG, rules, startRules}
