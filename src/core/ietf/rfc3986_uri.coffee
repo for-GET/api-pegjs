@@ -17,7 +17,7 @@ rules =
   URI: () ->
     hier_part = __result[2]
     {
-      __type: 'URI'
+      __type: __ruleName
       scheme: __result[0]
       slashes: hier_part.slashes
       authority: hier_part.authority
@@ -30,24 +30,24 @@ rules =
   hier_part: [
     () ->
       {
-        __type: 'hier_part'
+        __type: __ruleName
         slashes: __result[0]
         authority: __result[1]
         path: __result[2]
       }
     () ->
       {
-        __type: 'hier_part'
+        __type: __ruleName
         path: __result[0]
       }
     () ->
       {
-        __type: 'hier_part'
+        __type: __ruleName
         path: __result[0]
       }
     () ->
       {
-        __type: 'hier_part'
+        __type: __ruleName
         path: __result[0]
       }
   ]
@@ -55,7 +55,7 @@ rules =
 
   authority: () ->
     {
-      __type: 'authority'
+      __type: __ruleName
       userinfo: __result[0]?[0]
       hostname: __result[1]
       port: __result[2]?[1]
@@ -65,7 +65,7 @@ rules =
   relative_ref: () ->
     relative_part = __result[0]
     {
-      __type: 'relative_ref'
+      __type: __ruleName
       slashes: relative_part.slashes
       authority: relative_part.authority
       path: relative_part.path
@@ -77,24 +77,24 @@ rules =
   relative_part: [
     () ->
       {
-        __type: 'relative_part'
+        __type: __ruleName
         slashes: __result[0]
         authority: __result[1]
         path: __result[2]
       }
     () ->
       {
-        __type: 'relative_part'
+        __type: __ruleName
         path: __result[0]
       }
     () ->
       {
-        __type: 'relative_part'
+        __type: __ruleName
         path: __result[0]
       }
     () ->
       {
-        __type: 'relative_part'
+        __type: __ruleName
         path: __result[0]
       }
   ]
@@ -102,7 +102,7 @@ rules =
 
   absolute_URI: () ->
     {
-      __type: 'absolute_uri'
+      __type: __ruleName
       scheme: __result[0]
       hier_part: __result[2]
       query: __result[3]?[1]

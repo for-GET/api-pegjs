@@ -13,7 +13,7 @@ startRules = [
 rules =
   state_machine: () ->
     {
-      __type: 'state_machine'
+      __type: __ruleName
       statements: __result[0]
     }
 
@@ -26,14 +26,14 @@ rules =
 
   declaration: () ->
     {
-      __type: 'declaration'
+      __type: __ruleName
       names: __result[0]
       value: __result[2]
     }
 
   assignment: () ->
     {
-      __type: 'assignment'
+      __type: __ruleName
       name: __result[0]
       value: __result[2]
     }
@@ -51,7 +51,7 @@ rules =
 
   transition: () ->
     {
-      __type: 'transition'
+      __type: __ruleName
       states: __result[0]
       messages: __result[2]
       next_state: __result[4]

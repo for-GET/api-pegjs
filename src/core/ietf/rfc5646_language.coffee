@@ -14,25 +14,26 @@ rules =
   language: [
     () ->
       {
-        __type: 'language'
+        __type: __ruleName
         tag: __result[0]
         subtag: __result[1]
       }
     () ->
       {
-        __type: 'language'
+        __type: __ruleName
         tag: __result[0]
         reserved: true
       }
     () ->
       {
-        __type: 'language'
+        __type: __ruleName
         tag: __result[0]
         registered: true
       }
   ]
 
 
-  extlang: () -> __result
+  extlang: () ->
+    __result
 
 module.exports = buildParser {PEG, rules, startRules}

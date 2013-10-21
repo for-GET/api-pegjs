@@ -38,7 +38,7 @@ rules =
 
   partial_uri: () ->
     {
-      __type: 'partial_uri'
+      __type: __ruleName
       relative_part: __result[0]
       query: __result[1]?[1]
     }
@@ -50,7 +50,7 @@ rules =
     body = __result[3]
 
     message = {
-      __type: 'message'
+      __type: __ruleName
       line
       headers
       body
@@ -59,7 +59,7 @@ rules =
 
   request_line: () ->
     {
-      __type: 'request_line'
+      __type: __ruleName
       method: __result[0]
       target: __result[2]
       version: __result[4]
@@ -71,7 +71,7 @@ rules =
 
   status_line: () ->
     {
-      __type: 'response_line'
+      __type: __ruleName
       version: __result[0]
       status_code: __result[2]
       reason_phrase: __result[4]
@@ -86,7 +86,7 @@ rules =
 
   header_field: () ->
     {
-      __type: 'header'
+      __type: __ruleName
       name: __result[0]
       value: __result[3]
     }
@@ -94,7 +94,7 @@ rules =
 
   comment: () ->
     {
-      __type: 'comment'
+      __type: __ruleName
       value: __result[1]
     }
 
@@ -106,7 +106,7 @@ rules =
     parameters = __result[2] or []
     parameters = parameters.map (parameter) -> parameter[3]
     {
-      __type: 'transfer_extension'
+      __type: __ruleName
       name: __result[0]
       parameters
     }
@@ -114,7 +114,7 @@ rules =
 
   transfer_parameter: () ->
     {
-      __type: 'transfer_parameter'
+      __type: __ruleName
       attribute: __result[0]
       value: __result[4]
     }
@@ -131,7 +131,7 @@ rules =
 
   Host: () ->
     {
-      __type: 'Host'
+      __type: __ruleName
       hostname: __result[0]
       port: __result[1]?[1]
     }
@@ -150,7 +150,7 @@ rules =
 
   received_protocol: () ->
     {
-      __type: 'received_protocol'
+      __type: __ruleName
       name: __result[0]?[0]
       version: __result[1]
     }
@@ -159,17 +159,21 @@ rules =
   received_by: [
     () ->
       {
-        __type: 'received_by'
+        __type: __ruleName
         hostname: __result[0]
         port: __result[1]?[1]
       }
-    () -> __result
+    () -> {
+      {
+         __type: __ruleName
+         pseudonym: __result
+      }
   ]
 
 
   pseudonym: () ->
     {
-      __type: 'pseudonym'
+      __type: __ruleName
       value: __result
     }
 
@@ -182,7 +186,7 @@ rules =
 
   protocol: () ->
     {
-      __type: 'protocol'
+      __type: __ruleName
       name: __result[0]
       version: __result[1]?[1]
     }

@@ -59,7 +59,7 @@ rules =
     parameters = __result[3] or []
     parameters = parameters.map (parameter) -> parameter[3]
     {
-      __type: 'media_type'
+      __type: __ruleName
       type: __result[0]
       subtype: __result[2]
       parameters
@@ -68,15 +68,15 @@ rules =
 
   parameter: () ->
     {
-      __type: 'parameter'
+      __type: __ruleName
       attribute: __result[0]
-      value: __result[2]
+      value: __result[2] or true
     }
 
 
   Content_Type: () ->
     {
-      __type: 'Content_Type'
+      __type: __ruleName
       value: __result[0]
     }
 
@@ -89,7 +89,7 @@ rules =
 
   Content_Location: () ->
     {
-      __type: 'Content_Location'
+      __type: __ruleName
       value: __result
     }
 
@@ -99,7 +99,7 @@ rules =
 
   expectation: () ->
     {
-      __type: 'expectation'
+      __type: __ruleName
       expect_name: __result[0]
       expect_value: __result[1]?[3]
       expect_params: (__result[2] or []).map (param) -> param[2]?[1]
@@ -108,7 +108,7 @@ rules =
 
   expect_param: () ->
     {
-      __type: 'expect_param'
+      __type: __ruleName
       expect_name: __result[0]
       expect_value: __result[1]?[3]
     }
@@ -116,14 +116,14 @@ rules =
 
   Max_Forwards: () ->
     {
-      __type: 'Max_Forwards'
+      __type: __ruleName
       value: __result
     }
 
 
   weight: () ->
     {
-      __type: 'weight'
+      __type: __ruleName
       attribute: 'q'
       value:  __result[4]
     }
@@ -134,7 +134,6 @@ rules =
 
   Accept_item_: () ->
     {
-      __type: 'Accept_item_'
       media_range: __result[0]
       accept_params: __result[1] or []
     }
@@ -149,7 +148,7 @@ rules =
 
   accept_ext: () ->
     {
-      __type: 'accept_ext'
+      __type: __ruleName
       attribute: __result[3]
       value: __result[4]?[1]
     }
@@ -160,7 +159,7 @@ rules =
     parameters = __result[1] or []
     parameters = parameters.map (parameter) -> parameter[4]
     {
-      __type: 'media_range'
+      __type: __ruleName
       type
       subtype
       parameters
@@ -202,7 +201,7 @@ rules =
 
   Referer: () ->
     {
-      __type: 'Referer'
+      __type: __ruleName
       value: __result
     }
 
@@ -213,14 +212,14 @@ rules =
     head = __result[0]
     value.unshift head
     {
-      __type: 'User_Agent'
+      __type: __ruleName
       value
     }
 
 
   product: () ->
     {
-      __type: 'product'
+      __type: __ruleName
       name: __result[0]
       version: __result[1]?[1]
     }
@@ -228,21 +227,21 @@ rules =
 
   HTTP_date: () ->
     {
-      __type: 'HTTP_date'
+      __type: __ruleName
       value: __result
     }
 
 
   Date: () ->
     {
-      __type: 'Date'
+      __type: __ruleName
       date: __result
     }
 
 
   IMF_fixdate: () ->
     {
-      __type: 'IMF_fixdate'
+      __type: __ruleName
       day_name: __result[0]
       date: __result[3]
       time_of_day: __result[5]
@@ -251,7 +250,7 @@ rules =
 
   date1: () ->
     {
-      __type: 'date1'
+      __type: __ruleName
       day: __result[0]
       month: __result[2]
       year: __result[4]
@@ -260,7 +259,7 @@ rules =
 
   time_of_day: () ->
     {
-      __type: 'time_of_day'
+      __type: __ruleName
       hour: __result[0]
       minute: __result[2]
       second: __result[4]
@@ -269,7 +268,7 @@ rules =
 
   Location: () ->
     {
-      __type: 'Location'
+      __type: __ruleName
       value: __result
     }
 
@@ -277,12 +276,12 @@ rules =
   Retry_After: [
     () ->
       {
-        __type: 'Retry_After'
+        __type: __ruleName
         HTTP_date: __result
       }
     () ->
       {
-        __type: 'Retry_After'
+        __type: __ruleName
         delta_seconds: __result
       }
   ]
@@ -291,7 +290,7 @@ rules =
   Vary: [
     () ->
       {
-        __type: 'Vary'
+        __type: __ruleName
         field_name: "*"
       }
     oneOrMore
@@ -307,38 +306,38 @@ rules =
     head = __result[0]
     value.unshift head
     {
-      __type: 'Server'
+      __type: __ruleName
       value
     }
 
   media_subtype: [
     () ->
       {
-        __type: 'media_subtype'
+        __type: __ruleName
         entity: __result[0]
         version: __result[2]
         syntax: __result[4]
       }
     () ->
       {
-        __type: 'media_subtype'
+        __type: __ruleName
         entity: __result[0]
         version: __result[2]
       }
     () ->
       {
-        __type: 'media_subtype'
+        __type: __ruleName
         entity: __result[0]
         syntax: __result[2]
       }
     () ->
       {
-        __type: 'media_subtype'
+        __type: __ruleName
         entity: __result
         syntax: __result
       }
     () ->
-        __type: 'media_subtype'
+        __type: __ruleName
         entity: __result
   ]
 
