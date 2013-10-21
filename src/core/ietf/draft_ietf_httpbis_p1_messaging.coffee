@@ -1,7 +1,6 @@
 {
   _
   buildParser
-  zeroOrMore
   oneOrMore
 } = require './_misc'
 PEG = require('core-pegjs')['ietf/draft_ietf_httpbis_p1_messaging']
@@ -100,7 +99,7 @@ rules =
     }
 
 
-  Transfer_Encoding: oneOrMore 'Transfer_Encoding'
+  Transfer_Encoding: oneOrMore
 
 
   transfer_extension: () ->
@@ -121,7 +120,7 @@ rules =
     }
 
 
-  Trailer: oneOrMore 'Trailer'
+  Trailer: oneOrMore
 
 
   # TE
@@ -138,7 +137,7 @@ rules =
     }
 
 
-  Via: oneOrMore 'Via'
+  Via: oneOrMore
 
 
   Via_item_: () ->
@@ -175,10 +174,10 @@ rules =
     }
 
 
-  Connection: oneOrMore 'Conection'
+  Connection: oneOrMore
 
 
-  Upgrade: oneOrMore 'Upgrade'
+  Upgrade: oneOrMore
 
 
   protocol: () ->

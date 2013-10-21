@@ -52,27 +52,23 @@ exports.funToString = (fun) ->
   fun.substring bodyStarts, bodyEnds
 
 
-exports.zeroOrMore = (__type) ->
-  fun = () ->
-    value = __result[0]?[1] or []
-    value = value.map (item) -> item[2]?[1]
-    head = __result[0]?[0]
-    value.unshift head  if head
-    {
-      __type: "{{__type}}"
-      value
-    }
-  exports.funToString(fun).replace '{{__type}}', __type
+exports.zeroOrMore = () ->
+  items = __result[0]?[1] or []
+  items = items.map (item) -> item[2]?[1]
+  head = __result[0]?[0]
+  items.unshift head  if head
+  {
+    __type: __ruleName
+    items
+  }
 
 
-exports.oneOrMore = (__type) ->
-  fun = () ->
-    value = __result[2] or []
-    value = value.map (item) -> item[2]?[1]
-    head = __result[1]
-    value.unshift head  if head
-    {
-      __type: "{{__type}}"
-      value
-    }
-  exports.funToString(fun).replace '{{__type}}', __type
+exports.oneOrMore = () ->
+  items = __result[2] or []
+  items = items.map (item) -> item[2]?[1]
+  head = __result[1]
+  items.unshift head  if head
+  {
+    __type: __ruleName
+    items
+  }

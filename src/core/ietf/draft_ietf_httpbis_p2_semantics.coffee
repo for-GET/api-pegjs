@@ -81,10 +81,10 @@ rules =
     }
 
 
-  Content_Encoding: oneOrMore 'Content_Encoding'
+  Content_Encoding: oneOrMore
 
 
-  Content_Language: oneOrMore 'Content_Language'
+  Content_Language: oneOrMore
 
 
   Content_Location: () ->
@@ -94,7 +94,7 @@ rules =
     }
 
 
-  Expect: oneOrMore 'Expect'
+  Expect: oneOrMore
 
 
   expectation: () ->
@@ -129,7 +129,7 @@ rules =
     }
 
 
-  Accept: zeroOrMore 'Accept'
+  Accept: zeroOrMore
 
 
   Accept_item_: () ->
@@ -167,7 +167,7 @@ rules =
     }
 
 
-  Accept_Charset: oneOrMore 'Accept_Charset'
+  Accept_Charset: oneOrMore
 
 
   Accept_Charset_item_: () ->
@@ -177,7 +177,7 @@ rules =
     }
 
 
-  Accept_Encoding: zeroOrMore 'Accept_Encoding'
+  Accept_Encoding: zeroOrMore
 
 
   Accept_Encoding_item_: () ->
@@ -187,7 +187,7 @@ rules =
     }
 
 
-  Accept_Language: oneOrMore 'Accept_Language'
+  Accept_Language: oneOrMore
 
 
   Accept_Language_item_: () ->
@@ -294,11 +294,11 @@ rules =
         __type: 'Vary'
         field_name: "*"
       }
-    oneOrMore 'Vary'
+    oneOrMore
   ]
 
 
-  Allow: oneOrMore 'Allow'
+  Allow: oneOrMore
 
 
   Server: () ->
