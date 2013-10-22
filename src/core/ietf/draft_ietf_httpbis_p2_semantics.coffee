@@ -29,6 +29,7 @@ media_subtype_syntax
 startRules = [
   # 'From'
   'Accept'
+  'media_range'
   'Accept_Charset'
   'Accept_Encoding'
   'Accept_Language'
