@@ -134,6 +134,7 @@ rules =
 
   Accept_item_: () ->
     {
+      __type: __ruleName
       media_range: __result[0]
       accept_params: __result[1] or []
     }
@@ -171,6 +172,7 @@ rules =
 
   Accept_Charset_item_: () ->
     {
+      __type: __ruleName
       charset: __result[0]
       weight: __result[1]
     }
@@ -181,6 +183,7 @@ rules =
 
   Accept_Encoding_item_: () ->
     {
+      __type: __ruleName
       encoding: __result[0]
       weight: __result[1]
     }
@@ -191,6 +194,7 @@ rules =
 
   Accept_Language_item_: () ->
     {
+      __type: __ruleName
       language_range: __result[0]
       weight: __result[1]
     }
