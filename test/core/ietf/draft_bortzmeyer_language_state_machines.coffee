@@ -1,41 +1,16 @@
 {
   should
+  loadTestcases
 } = require '../../_utils'
 cosmogol = require '../../../src/core/ietf/draft_bortzmeyer_language_state_machines'
+testcases = loadTestcases {dir: 'api-pegjs-test/draft_bortzmeyer_language_state_machines'}
 
-describe 'draft_bortzmeyer_language_state_machines', () ->
-  describe 'basic', () ->
-    fsm = """
-var1 = test;
-var2 = test2;
-
-state1,
-state2
-: states;
-
-msg
-: messages;
-
-act
-: actions;
-
-state1:msg -> state2:act;
-"""
-    it 'should work', () ->
-      c = cosmogol.state_machine fsm
-      c.should.eql
-        __type: 'state_machine'
-        statements: [
-          {__type: 'assignment', name: 'var1', value: 'test'}
-          {__type: 'assignment', name: 'var2', value: 'test2'}
-          {__type: 'declaration', names: ['state1', 'state2'], value: 'states'}
-          {__type: 'declaration', names: ['msg'], value: 'messages'}
-          {__type: 'declaration', names: ['act'], value: 'actions'}
-          {
-            __type: 'transition'
-            states: ['state1']
-            messages: ['msg']
-            next_state: 'state2'
-            action: 'act'
-          }
-        ]
+describe.only 'draft_bortzmeyer_language_state_machines', () ->
+  for testcase in testcases
+    {file, name, content} = testcase
+    describe name, () ->
+      for test in content
+        [description, input, expected] = test
+        it description, () ->
+          actual = cosmogol[name] input
+          actual.should.eql expected
