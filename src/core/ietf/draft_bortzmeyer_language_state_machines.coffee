@@ -12,17 +12,17 @@ startRules = [
 
 rules =
   state_machine: () ->
+    statements = [__result[1]]
+    __result[2].forEach (statement) ->
+      return  unless statement?.__type in ['transition', 'declaration', 'assignment']
+      statements.push statement
     {
       __type: __ruleName
-      statements: __result[0]
+      statements
     }
 
-  statement: [
-    () ->
-      "" # ignore comments
-    () ->
-      __result[0]
-  ]
+  statement: () ->
+    __result[0]
 
   declaration: () ->
     {
