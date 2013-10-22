@@ -22,3 +22,29 @@ module.exports.loadTestcaseCallback = ({file, name, content}) ->
     continue  unless $ref
     $ref = path.resolve path.dirname(file), $ref
     test[1] = fs.readFileSync $ref, 'utf-8'
+
+module.exports.runTestcase = (parser, testcases) ->
+  () ->
+    for testcase in testcases
+      {file, name, content} = testcase
+      describe name, do () ->
+        parser_ = parser
+        name_ = name
+        content_ = content
+        () ->
+          for test in content_
+            [description, input, expected] = test
+            it description, do () ->
+              parser__ = parser_
+              name__ = name_
+              input__ = input
+              expected__ = expected
+              () ->
+                if expected__ isnt undefined
+                  actual = parser__[name__] input__
+                  actual = JSON.parse JSON.stringify actual
+                  actual.should.eql expected__
+                else
+                  fun = () ->
+                    parser__[name__] input__
+                  fun.should.Throw()
