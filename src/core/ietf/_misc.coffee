@@ -17,7 +17,7 @@ exports.buildParser = ({PEG, initializer, rules, startRules}) ->
     alias[rule] = aliasName
     rule
   options = {
-    startRules
+    allowedStartRules: startRules
     plugins: [overrideAction]
     overrideActionPlugin: {
       rules
