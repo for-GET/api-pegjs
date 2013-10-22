@@ -163,7 +163,7 @@ rules =
         hostname: __result[0]
         port: __result[1]?[1]
       }
-    () -> {
+    () ->
       {
          __type: __ruleName
          pseudonym: __result
