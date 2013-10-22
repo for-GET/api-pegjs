@@ -3,7 +3,7 @@
 } = require '../../_utils'
 httpbis_p2 = require '../../../src/core/ietf/draft_ietf_httpbis_p2_semantics'
 
-describe.skip 'draft_ietf_httpbis_p2_semantics', () ->
+describe 'draft_ietf_httpbis_p2_semantics', () ->
 
   describe 'Accept', () ->
     it 'should parse common Accept headers', () ->

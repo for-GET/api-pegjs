@@ -74,7 +74,7 @@ describe 'draft_ietf_httpbis_p1_messaging', () ->
     it 'should parse common Upgrade headers', () ->
       httpbis_p1.Upgrade('HTTP/2.0,HTTP/1.1').should.eql
         __type: "Upgrade"
-        value: [
+        items: [
           __type: "protocol"
           name: "HTTP"
           version: "2.0"
@@ -84,7 +84,7 @@ describe 'draft_ietf_httpbis_p1_messaging', () ->
           version: "1.1"
         ]
 
-  describe.skip 'Via', () ->
+  describe 'Via', () ->
     it 'should parse common Via headers', () ->
       a = httpbis_p1.Via('HTTP 123qwe (test)')
       console.error JSON.stringify a, null, 2

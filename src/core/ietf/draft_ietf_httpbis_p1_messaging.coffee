@@ -50,7 +50,7 @@ rules =
     body = __result[3]
 
     message = {
-      __type: __ruleName
+      __type: 'message'
       line
       headers
       body
@@ -71,7 +71,7 @@ rules =
 
   status_line: () ->
     {
-      __type: __ruleName
+      __type: 'response_line'
       version: __result[0]
       status_code: __result[2]
       reason_phrase: __result[4]
@@ -86,7 +86,7 @@ rules =
 
   header_field: () ->
     {
-      __type: __ruleName
+      __type: 'header'
       name: __result[0]
       value: __result[3]
     }
