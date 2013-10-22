@@ -8,18 +8,18 @@ module.exports = class MixinAccept extends AbstractBase
 
   _parse: (string) ->
     parsed = super
-    parsed.value = parsed.value.map (AcceptItem) => new @_AcceptItemClass AcceptItem
+    parsed.items = parsed.items.map (AcceptItem) => new @_AcceptItemClass AcceptItem
     parsed
 
 
   Object.defineProperty @::, 'items',
     get: () ->
-      @ast.value
-    set: (value) ->
-      value = value.map (AcceptItem) =>
+      @ast.items
+    set: (items) ->
+      items = items.map (AcceptItem) =>
         return AcceptItem  if AcceptItem instanceof @_AcceptItemClass
         new @_AcceptItemClass AcceptItem
-      @ast.value = value
+      @ast.items = items
 
 
   add: (Item) ->
