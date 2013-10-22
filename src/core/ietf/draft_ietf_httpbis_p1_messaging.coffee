@@ -30,7 +30,7 @@ startRules = [
 rules =
   HTTP_version: () ->
     {
-      __type: 'version'
+      __type: __ruleName
       major: __result[2]
       minor: __result[4]
     }
@@ -50,7 +50,7 @@ rules =
     body = __result[3]
 
     message = {
-      __type: 'message'
+      __type: __ruleName
       line
       headers
       body
@@ -71,7 +71,7 @@ rules =
 
   status_line: () ->
     {
-      __type: 'response_line'
+      __type: __ruleName
       version: __result[0]
       status_code: __result[2]
       reason_phrase: __result[4]
@@ -86,7 +86,7 @@ rules =
 
   header_field: () ->
     {
-      __type: 'header'
+      __type: __ruleName
       name: __result[0]
       value: __result[3]
     }
@@ -166,16 +166,9 @@ rules =
     () ->
       {
          __type: __ruleName
-         pseudonym: __result
+         pseudonym: __result[0]
       }
   ]
-
-
-  pseudonym: () ->
-    {
-      __type: __ruleName
-      value: __result
-    }
 
 
   Connection: oneOrMore
