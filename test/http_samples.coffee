@@ -52,7 +52,10 @@ testcases = uniqueTestcases loadTestcases {dir: 'http_samples', pattern: '**/*.h
 parserShouldNotThrow = ({parser, input}) ->
   () ->
     fun = () ->
-      parser input
+      try
+        parser input
+      catch e
+        throw new Error e.message
     fun.should.not.Throw()  if input isnt undefined
 
 
