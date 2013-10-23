@@ -4,6 +4,7 @@ _ = require 'lodash'
 glob = require 'glob'
 pkgRoot = path.resolve './node_modules'
 
+
 module.exports.loadTestcases = ({dir, cb}) ->
   cb ?= module.exports.loadTestcaseCallback
   dir = path.resolve pkgRoot, dir
@@ -12,16 +13,26 @@ module.exports.loadTestcases = ({dir, cb}) ->
   for file in files
     content = JSON.parse fs.readFileSync file, 'utf-8'
     name = path.basename file, '.json'
-    file = cb {file, name, content}  if cb
+    content = cb {file, name, content}  if cb
     testcases.push {file, name, content}
   testcases
 
+
+module.exports.maybeLoad$ref = ({file, obj}) ->
+  $ref = obj?.$ref
+  return obj  unless $ref
+  $ref = path.resolve path.dirname(file), $ref
+  content = fs.readFileSync $ref, 'utf-8'
+  content = JSON.parse content  if path.extname($ref) is '.json'
+  content
+
+
 module.exports.loadTestcaseCallback = ({file, name, content}) ->
   for test in content
-    $ref = test[1]?.$ref
-    continue  unless $ref
-    $ref = path.resolve path.dirname(file), $ref
-    test[1] = fs.readFileSync $ref, 'utf-8'
+    test[1] = module.exports.maybeLoad$ref {file, obj: test[1]}
+    test[2] = module.exports.maybeLoad$ref {file, obj: test[2]}
+  content
+
 
 module.exports.runTestcase = (parser, testcases) ->
   () ->
