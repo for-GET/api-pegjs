@@ -1,3 +1,6 @@
 [submodule ".coffee.mk"]
 	path = .coffee.mk
 	url = git://github.com/andreineculau/coffee.mk
+[submodule "node_modules/http_samples"]
+	path = node_modules/http_samples
+	url = git://github.com/http2/http_samples.git
