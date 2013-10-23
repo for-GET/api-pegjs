@@ -38,15 +38,13 @@ module.exports.loadTestcaseCallback = ({file, name, content}) ->
 
 module.exports.runTestcase = (parser, testcases) ->
   () ->
-    for testcase in testcases
-      {file, name, content} = testcase
+    for {file, name, content} in testcases
       describe name, do () ->
         parser_ = parser
         name_ = name
         content_ = content
         () ->
-          for test in content_
-            [description, input, expected] = test
+          for [description, input, expected] in content_
             it description, do () ->
               parser__ = parser_
               name__ = name_
