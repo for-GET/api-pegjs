@@ -9,6 +9,7 @@ startRules = [
   'URI_reference'
   'authority'
   'relative_ref'
+  'reg_name'
   'absolute_URI'
 ]
 
@@ -101,10 +102,7 @@ rules =
 
 
   reg_name: () ->
-    reg_name = __result[0]
-    # Naïve filtering of pseudonyms i.e. draft_ietf_httpbis_p1_messaging#received_by
-    return null  unless reg_name is 'localhost' or reg_name.indexOf('.') > -1
-    reg_name
+    __result[0]
 
 
   absolute_URI: () ->
