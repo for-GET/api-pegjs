@@ -56,7 +56,7 @@ parserShouldNotThrow = ({parser, input}) ->
     fun.should.not.Throw()  if input isnt undefined
 
 
-describe.only 'http_samples', do () ->
+describe 'http_samples', do () ->
   parsers_ = parsers
   testcases_ = testcases
   parserShouldNotThrow_ = parserShouldNotThrow
