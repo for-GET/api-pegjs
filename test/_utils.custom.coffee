@@ -5,15 +5,17 @@ glob = require 'glob'
 pkgRoot = path.resolve './node_modules'
 
 
-module.exports.loadTestcases = ({dir, cb}) ->
+module.exports.loadTestcases = ({dir, cb, pattern}) ->
   cb ?= module.exports.loadTestcaseCallback
+  pattern ?= '*.json'
   dir = path.resolve pkgRoot, dir
-  files = glob.sync path.join dir, '**/*.json'
+  files = glob.sync path.join dir, pattern
   testcases = []
   for file in files
-    content = JSON.parse fs.readFileSync file, 'utf-8'
-    name = path.basename file, '.json'
-    content = cb {file, name, content}  if cb
+    content = fs.readFileSync file, 'utf-8'
+    name = path.basename file, path.extname(file)
+    content = JSON.parse content  if path.extname(file) is '.json'
+    content = cb {file, name, content}
     testcases.push {file, name, content}
   testcases
 
