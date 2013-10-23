@@ -42,7 +42,7 @@
     "pegjs-override-action": "~0.0.7"
   },
   "devDependencies": {
-    "api-pegjs-test": "~0.0.1",
+    "api-pegjs-test": "git://github.com/for-GET/api-pegjs-test.git#master",
     "chai": "~1.8.1",
     "coffeelint": "~0.6.1",
     "growl": "~1.7.0",
