@@ -55,6 +55,7 @@ parserShouldNotThrow = ({parser, input}) ->
       try
         parser input
       catch e
+        # get around a chaijs "bug" see https://github.com/chaijs/chai/pull/201
         throw new Error e.message
     fun.should.not.Throw()  if input isnt undefined
 
