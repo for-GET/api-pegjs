@@ -10,6 +10,7 @@ parsers =
   uri: require '../src/core/ietf/rfc3986_uri'
   httpbis_p1: require '../src/core/ietf/draft_ietf_httpbis_p1_messaging'
   httpbis_p2: require '../src/core/ietf/draft_ietf_httpbis_p2_semantics'
+  httpbis_p4: require '../src/core/ietf/draft_ietf_httpbis_p4_conditional'
 cb = ({file, name, content}) ->
   content = JSON.parse(content).log.entries
   content
@@ -132,9 +133,11 @@ describe 'http_samples', () ->
     for header, inputs of testcases[direction].headers
       # Ignore some poorly used headers
       # FIXME CHECKME
-      continue  if header.toLowerCase() in ['via', 'server', 'date']
+      continue  if header.toLowerCase() in ['date', 'etag', 'server', 'via']
 
-      parser = parsers.httpbis_p1[header] or parsers.httpbis_p2[header]
+      parser = undefined
+      for parserGroup in ['httpbis_p1', 'httpbis_p2', 'httpbis_p4']
+        parser ?= parsers[parserGroup][header]
       continue  unless parser?
 
       http_sample_it {
