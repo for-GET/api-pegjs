@@ -25,3 +25,11 @@ module.exports = class AbstractBase extends SuperObject
 
   toString: () ->
     @ast.toString()
+
+
+  toJSON: () ->
+    return @ast.toJSON()  if _.isFunction @ast.toJSON
+    return @ast  unless _.isPlainObject @ast or _.isArray @ast
+    for key, value of @ast
+      @ast[key] = value.toJSON()  if _.isFunction value.toJSON
+    @ast
