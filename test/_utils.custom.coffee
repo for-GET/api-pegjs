@@ -2,8 +2,13 @@ fs = require 'fs'
 path = require 'path'
 _ = require 'lodash'
 glob = require 'glob'
+pctEncode = require 'pct-encode'
 pkgRoot = path.resolve './node_modules'
 
+
+module.exports = {
+  pctEncode
+}
 
 module.exports.loadTestcases = ({dir, cb, pattern}) ->
   cb ?= module.exports.loadTestcaseCallback
