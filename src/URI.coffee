@@ -1,6 +1,7 @@
 _ = require 'lodash'
 rfc3986_uri = require './core/ietf/rfc3986_uri'
 AbstractBase = require './abstract/Base'
+Hostname = require './URI/Hostname'
 
 
 module.exports = class URI extends AbstractBase
@@ -16,7 +17,7 @@ module.exports = class URI extends AbstractBase
       authority:
         __type: 'authority'
         userinfo: ''
-        hostname: ''
+        hostname: '127.0.0.1'
         port: ''
       path: '/'
       query: ''
@@ -55,9 +56,9 @@ module.exports = class URI extends AbstractBase
 
   Object.defineProperty @::, 'hostname',
     get: () ->
-      @ast.authority.hostname
+      @ast.authority.hostname.toString()
     set: (value) ->
-      @ast.authority.hostname = value
+      @ast.authority.hostname = new Hostname value
 
 
   Object.defineProperty @::, 'port',
@@ -86,6 +87,11 @@ module.exports = class URI extends AbstractBase
       @ast.fragment
     set: (value) ->
       @ast.fragment = value
+
+
+  constructor: (source) ->
+    super
+    @ast.authority.hostname = new Hostname @ast.authority.hostname
 
 
   toString: () ->
