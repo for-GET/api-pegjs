@@ -9,6 +9,9 @@ startRules = [
   'URI_reference'
   'authority'
   'relative_ref'
+  ['hostname', 'uri_host']
+  'IPv6address'
+  'IPv4address'
   'reg_name'
   'absolute_URI'
 ]
@@ -99,6 +102,53 @@ rules =
         path: __result[0]
       }
   ]
+
+
+  hostname: [
+    () ->
+      {
+        __type: 'uri_host',
+        ip: __result[0]
+      }
+    () ->
+      {
+        __type: 'uri_host',
+        ip: __result[0]
+      }
+    () ->
+      {
+        __type: 'uri_host',
+        reg_name: __result[0]
+      }
+  ]
+
+
+  IP_literal: () ->
+    __result[1]
+
+
+  IPvFuture: () ->
+    {
+      __type: __ruleName
+      version: __result[1]
+      address: __result3
+    }
+
+
+  IPv6address: () ->
+    {
+      __type: __ruleName
+      version: '6'
+      address: __result[0]
+    }
+
+
+  IPv4address: () ->
+    {
+      __type: __ruleName
+      version: '4'
+      address: __result[0]
+    }
 
 
   reg_name: () ->
