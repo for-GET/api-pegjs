@@ -50,7 +50,8 @@ module.exports.runTestcase = (parser, testcases) ->
         content_ = content
         () ->
           for [description, input, expected] in content_
-            it description, do () ->
+            inputDesc = input.toString()#.replace("\r", "").replace("\n", "").substr 0, 50
+            it "#{description} (#{inputDesc})", do () ->
               parser__ = parser_
               name__ = name_
               input__ = input
