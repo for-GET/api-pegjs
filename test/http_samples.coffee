@@ -19,29 +19,11 @@ pushUnique = (item, bucket) ->
 
 fixHAR = (type, input) ->
   # FIXME tampering with the samples
-  # URLs are not following the standard
   if type is 'url'
     # URLs are apparently not using point encoding
     url = input
     url = pctEncode(/[%\[\]\{\}\|]/g) url
-    return url
-    url = url.replace /%[a-fA-F0-9][a-fA-F0-9]/g, (hexdig) -> hexdig.toUpperCase()
-    return url
-    [url, query] = input.split '?'
-    replacements = [':', '/', '.', '&', '=']
-    for replacement, index in replacements
-      url = url.replace replacement, "zzz#{index}zzz"
-    url = pctEncode(/\W/g) url
-    for replacement, index in replacements
-      url = url.replace "zzz#{index}zzz", replacement
-    return url  unless query?
-    replacements = ['&', '=']
-    for replacement, index in replacements
-      query = query.replace replacement, "zzz#{index}zzz"
-    query = pctEncode(/\W/g) query
-    for replacement, index in replacements
-      query = query.replace "zzz#{index}zzz", replacement
-    "#{url}?#{query}"
+    url
   else
     input
 
@@ -92,7 +74,7 @@ parserShouldNotThrow = ({parser, input}) ->
       try
         parser input
       catch e
-        # get around a chaijs "bug" see https://github.com/chaijs/chai/pull/201
+        # Get around a chaijs "bug" see https://github.com/chaijs/chai/pull/201
         throw new Error e.message
     fun.should.not.Throw()  if input isnt undefined
 
