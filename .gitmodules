@@ -1,6 +1,12 @@
 [submodule ".coffee.mk"]
 	path = .coffee.mk
 	url = git://github.com/andreineculau/coffee.mk
-[submodule "node_modules/http_samples"]
-	path = node_modules/http_samples
+[submodule "test.pool/http_samples"]
+	path = test.pool/http_samples
 	url = git://github.com/for-GET/http_samples.git
+[submodule "test.pool/url-testing"]
+	path = test.pool/url-testing
+	url = git://github.com/for-GET/url-testing.git
+[submodule "test.pool/url"]
+	path = test.pool/url
+	url = git://github.com/for-GET/url.git
