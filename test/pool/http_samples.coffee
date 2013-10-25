@@ -1,5 +1,5 @@
-# Do not run this suite unless specifically allowing warnings
-return  unless process.env.MOCHA_WARNINGS
+# Do not run this suite unless specifically runnings test pools
+return  unless process.env.TEST_POOLS
 
 {
   should

@@ -4,4 +4,4 @@ node_js:
 - "0.8"
 - "0.10"
 env:
-- MOCHA_WARNINGS=true
+- TEST_POOLS=true
