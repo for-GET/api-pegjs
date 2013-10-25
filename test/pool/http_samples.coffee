@@ -5,12 +5,12 @@ return  unless process.env.MOCHA_WARNINGS
   should
   loadTestcases
   pctEncode
-} = require './_utils'
+} = require '../_utils'
 parsers =
-  uri: require '../src/core/ietf/rfc3986_uri'
-  httpbis_p1: require '../src/core/ietf/draft_ietf_httpbis_p1_messaging'
-  httpbis_p2: require '../src/core/ietf/draft_ietf_httpbis_p2_semantics'
-  httpbis_p4: require '../src/core/ietf/draft_ietf_httpbis_p4_conditional'
+  uri: require '../../src/core/ietf/rfc3986_uri'
+  httpbis_p1: require '../../src/core/ietf/draft_ietf_httpbis_p1_messaging'
+  httpbis_p2: require '../../src/core/ietf/draft_ietf_httpbis_p2_semantics'
+  httpbis_p4: require '../../src/core/ietf/draft_ietf_httpbis_p4_conditional'
 cb = ({file, name, content}) ->
   content = JSON.parse(content).log.entries
   content
