@@ -5,6 +5,7 @@ return  unless process.env.MOCHA_WARNINGS
   should
   loadTestcases
   pctEncode
+  parserShouldNotThrow
 } = require '../_utils'
 parsers =
   uri: require '../../src/core/ietf/rfc3986_uri'
@@ -69,24 +70,13 @@ uniqueTestcases = (testcases) ->
 testcases = uniqueTestcases loadTestcases {dir: 'http_samples', pattern: '**/*.har', cb}
 
 
-parserShouldNotThrow = ({parser, input}) ->
-  () ->
-    fun = () ->
-      try
-        parser input
-      catch e
-        # Get around a chaijs "bug" see https://github.com/chaijs/chai/pull/201
-        throw new Error e.message
-    fun.should.not.Throw()  if input isnt undefined
-
-
 http_sample_it = ({section, parser, inputs}) ->
   for input in inputs
     inputDesc = input.toString()#.replace("\r", "").replace("\n", "").substr 0, 50
     it "#{section} (#{inputDesc})", parserShouldNotThrow {parser, input}
 
 
-describe 'http_samples', () ->
+describe 'pool.http_samples', () ->
   # method
   http_sample_it {
     section: 'request.method'

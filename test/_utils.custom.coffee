@@ -65,3 +65,13 @@ module.exports.runTestcase = (parser, testcases) ->
                   fun = () ->
                     parser__[name__] input__
                   fun.should.Throw()
+
+module.exports.parserShouldNotThrow = ({parser, input}) ->
+  () ->
+    fun = () ->
+      try
+        parser input
+      catch e
+        # Get around a chaijs "bug" see https://github.com/chaijs/chai/pull/201
+        throw new Error e.message
+    fun.should.not.Throw()  if input isnt undefined
