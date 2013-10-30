@@ -1,6 +1,8 @@
 # API PEGjs [![Build Status][2]][1]
 
-A collection of PEG parsers for HTTP, API and related grammars
+A collection of PEG parsers for HTTP, API and related grammars, along with generators and functional components
+
+**This is part of a bigger effort: [for-GET HTTP](https://github.com/for-GET/README).**
 
 
 ## Parsers
@@ -59,5 +61,5 @@ where `module.parser` can be
 [Apache 2.0](LICENSE)
 
 
-  [1]: https://travis-ci.org/andreineculau/api-pegjs
-  [2]: https://travis-ci.org/andreineculau/api-pegjs.png
+  [1]: https://travis-ci.org/for-GET/api-pegjs
+  [2]: https://travis-ci.org/for-GET/api-pegjs.png
