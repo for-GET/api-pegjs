@@ -5,26 +5,6 @@
   oneorMoreHTTP
 } = require './_misc'
 PEG = require('core-pegjs')['ietf/draft_ietf_httpbis_p2_semantics']
-PEG = """
-#{PEG}
-
-media_subtype
-  = media_subtype_entity "-v" media_subtype_version "+" media_subtype_syntax
-  / media_subtype_entity "-v" media_subtype_version
-  / media_subtype_entity "+" media_subtype_syntax
-  / media_subtype_syntax
-  / subtype
-
-media_subtype_entity
-  = $((!("-v" / "+") tchar)+)
-
-media_subtype_version
-  = $(DIGIT+)
-
-media_subtype_syntax
-  = $(ALPHA+)
-"""
-
 
 startRules = [
   # 'From'
@@ -50,7 +30,6 @@ startRules = [
   'Server'
   'User_Agent'
   'Vary'
-  'media_subtype'
   'media_type'
 ]
 
@@ -314,37 +293,6 @@ rules =
       __type: __ruleName
       value
     }
-
-  media_subtype: [
-    () ->
-      {
-        __type: __ruleName
-        entity: __result[0]
-        version: __result[2]
-        syntax: __result[4]
-      }
-    () ->
-      {
-        __type: __ruleName
-        entity: __result[0]
-        version: __result[2]
-      }
-    () ->
-      {
-        __type: __ruleName
-        entity: __result[0]
-        syntax: __result[2]
-      }
-    () ->
-      {
-        __type: __ruleName
-        entity: __result
-        syntax: __result
-      }
-    () ->
-        __type: __ruleName
-        entity: __result
-  ]
 
 
 rules = _.defaults(
