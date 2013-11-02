@@ -21,8 +21,10 @@ rules =
       statements
     }
 
+
   statement: () ->
     __result[0]
+
 
   declaration: () ->
     {
@@ -31,6 +33,7 @@ rules =
       value: __result[2]
     }
 
+
   assignment: () ->
     {
       __type: __ruleName
@@ -38,16 +41,20 @@ rules =
       value: __result[2]
     }
 
+
   names: () ->
     names = [__result[0]]
     names.push item[1]  for item in __result[1]
     names
 
+
   name: () ->
     __result[0]
 
+
   quoted_name: () ->
     __result[1]
+
 
   transition: () ->
     {
