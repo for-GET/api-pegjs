@@ -1,7 +1,7 @@
 {
   _
   buildParser
-  oneOrMore
+  oneorMoreHTTP
 } = require './_misc'
 PEG = require('core-pegjs')['ietf/draft_ietf_httpbis_p1_messaging']
 
@@ -99,7 +99,7 @@ rules =
     }
 
 
-  Transfer_Encoding: oneOrMore
+  Transfer_Encoding: oneorMoreHTTP
 
 
   transfer_extension: () ->
@@ -120,7 +120,7 @@ rules =
     }
 
 
-  Trailer: oneOrMore
+  Trailer: oneorMoreHTTP
 
 
   # TE
@@ -137,7 +137,7 @@ rules =
     }
 
 
-  Via: oneOrMore
+  Via: oneorMoreHTTP
 
 
   Via_item_: () ->
@@ -171,10 +171,10 @@ rules =
   ]
 
 
-  Connection: oneOrMore
+  Connection: oneorMoreHTTP
 
 
-  Upgrade: oneOrMore
+  Upgrade: oneorMoreHTTP
 
 
   protocol: () ->

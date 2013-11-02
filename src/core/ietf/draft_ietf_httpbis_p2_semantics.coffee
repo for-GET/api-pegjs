@@ -1,8 +1,8 @@
 {
   _
   buildParser
-  zeroOrMore
-  oneOrMore
+  zeroorMoreHTTP
+  oneorMoreHTTP
 } = require './_misc'
 PEG = require('core-pegjs')['ietf/draft_ietf_httpbis_p2_semantics']
 PEG = """
@@ -82,10 +82,10 @@ rules =
     }
 
 
-  Content_Encoding: oneOrMore
+  Content_Encoding: oneorMoreHTTP
 
 
-  Content_Language: oneOrMore
+  Content_Language: oneorMoreHTTP
 
 
   Content_Location: () ->
@@ -95,7 +95,7 @@ rules =
     }
 
 
-  Expect: oneOrMore
+  Expect: oneorMoreHTTP
 
 
   expectation: () ->
@@ -130,7 +130,7 @@ rules =
     }
 
 
-  Accept: zeroOrMore
+  Accept: zeroorMoreHTTP
 
 
   Accept_item_: () ->
@@ -168,7 +168,7 @@ rules =
     }
 
 
-  Accept_Charset: oneOrMore
+  Accept_Charset: oneorMoreHTTP
 
 
   Accept_Charset_item_: () ->
@@ -179,7 +179,7 @@ rules =
     }
 
 
-  Accept_Encoding: zeroOrMore
+  Accept_Encoding: zeroorMoreHTTP
 
 
   Accept_Encoding_item_: () ->
@@ -190,7 +190,7 @@ rules =
     }
 
 
-  Accept_Language: oneOrMore
+  Accept_Language: oneorMoreHTTP
 
 
   Accept_Language_item_: () ->
@@ -298,11 +298,11 @@ rules =
         __type: __ruleName
         field_name: "*"
       }
-    oneOrMore
+    oneorMoreHTTP
   ]
 
 
-  Allow: oneOrMore
+  Allow: oneorMoreHTTP
 
 
   Server: () ->
