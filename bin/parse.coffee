@@ -4,7 +4,7 @@ apiPEG = require '../'
 
 [_, _, parser, startRule] = process.argv
 
-parse = apiPEG[parser]?({startRule})
+parse = apiPEG[parser]? {startRule}
 throw new Error 'Unknown parser or start rule'  unless parse?
 
 input = process.stdin
