@@ -3,7 +3,7 @@ path = require 'path'
 _ = require 'lodash'
 glob = require 'glob'
 pctEncode = require 'pct-encode'
-testRoot = path.resolve './test.pool'
+testPoolRoot = path.resolve './test.pool'
 
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
 module.exports.loadTestcases = ({dir, cb, pattern}) ->
   cb ?= module.exports.loadTestcaseCallback
   pattern ?= '*.json'
-  dir = path.resolve testRoot, dir
+  dir = path.resolve testPoolRoot, dir
   files = glob.sync path.join dir, pattern
   testcases = []
   for file in files
