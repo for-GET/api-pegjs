@@ -127,7 +127,7 @@ describe 'pool.http_samples', () ->
 
       parser = undefined
       for parserGroup in ['httpbis_p1', 'httpbis_p2', 'httpbis_p4']
-        parser ?= parsers[parserGroup] {startRule: header.replace('-', '-')}
+        parser ?= parsers[parserGroup] {startRule: header.replace(/\-/g, '_')}
       continue  unless parser?
 
       http_sample_it {
