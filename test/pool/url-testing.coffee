@@ -50,6 +50,6 @@ testcases = loadTestcases {dir: 'url-testing', pattern: 'urls*.json', cb}
 describe.only 'pool.url-testing', () ->
   for {file, name, content} in testcases
     for [description, input] in content
-      parser = uri.URI
+      parser = uri {startRule: 'URI'}
       inputDesc = input.toString()#.replace("\r", "").replace("\n", "").substr 0, 50
       it "#{name}.#{description} (#{inputDesc})", parserShouldNotThrow {parser, input}

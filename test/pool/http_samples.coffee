@@ -80,42 +80,42 @@ describe 'pool.http_samples', () ->
   # method
   http_sample_it {
     section: 'request.method'
-    parser: parsers.httpbis_p1.method
+    parser: parsers.httpbis_p1 {startRule: 'method'}
     inputs: testcases.request.method
   }
   # URI
   http_sample_it {
     section: 'request.url'
-    parser: parsers.uri.URI
+    parser: parsers.uri {startRule: 'URI'}
     inputs: testcases.request.url
   }
   # URI_reference
   http_sample_it {
     section: 'response.redirectURL'
-    parser: parsers.uri.URI_reference
+    parser: parsers.uri {startRule: 'URI_reference'}
     inputs: testcases.response.redirectURL
   }
   # HTTP_version
   http_sample_it {
     section: 'request.version'
-    parser: parsers.httpbis_p1.version
+    parser: parsers.httpbis_p1 {startRule: 'version'}
     inputs: testcases.request.version
   }
   http_sample_it {
     section: 'response.version'
-    parser: parsers.httpbis_p1.version
+    parser: parsers.httpbis_p1 {startRule: 'version'}
     inputs: testcases.request.version
   }
   # status_code
   http_sample_it {
     section: 'response.status'
-    parser: parsers.httpbis_p1.status_code
+    parser: parsers.httpbis_p1 {startRule: 'status_code'}
     inputs: testcases.response.status
   }
   # reason_phrase
   http_sample_it {
     section: 'response.statusText'
-    parser: parsers.httpbis_p1.reason_phrase
+    parser: parsers.httpbis_p1 {startRule: 'reason_phrase'}
     inputs: testcases.response.statusText
   }
   # headers
@@ -127,7 +127,7 @@ describe 'pool.http_samples', () ->
 
       parser = undefined
       for parserGroup in ['httpbis_p1', 'httpbis_p2', 'httpbis_p4']
-        parser ?= parsers[parserGroup][header]
+        parser ?= parsers[parserGroup] {startRule: header.replace('-', '-')}
       continue  unless parser?
 
       http_sample_it {
