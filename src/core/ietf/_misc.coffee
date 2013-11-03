@@ -1,5 +1,4 @@
-_ = require 'lodash'
-misc = require '../_misc'
+{_} = misc = require '../_misc'
 
 module.exports = _.assign {}, misc, {
   zeroOrMoreHTTP: () ->

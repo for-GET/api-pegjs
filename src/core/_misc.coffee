@@ -1,9 +1,9 @@
-_ = require 'lodash'
+{_} = misc = require '../_misc'
 pegjs = require 'pegjs'
 overrideAction = require 'pegjs-override-action'
 
 
-module.exports = {
+module.exports = _.assign {}, misc, {
   _
 
 
