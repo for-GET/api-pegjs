@@ -1,12 +1,14 @@
 _ = require 'lodash'
 httpbis_p1 = require '../../core/ietf/draft_ietf_httpbis_p1_messaging'
 httpbis_p2 = require '../../core/ietf/draft_ietf_httpbis_p2_semantics'
+media_subtype = require '../../core/for-get/media_subtype'
+
 AbstractBase = require '../../abstract/Base'
 
 
 module.exports = class ContentType extends AbstractBase
   _type: 'Content_Type'
-  _parser: httpbis_p2.Content_Type
+  _parser: httpbis_p2 {startRule: 'Content_Type'}
   _paramSep: ';'
 
 
@@ -18,7 +20,7 @@ module.exports = class ContentType extends AbstractBase
   _defaultAst: () ->
     {
       __type: @_type
-      media_type:
+      value:
         __type: 'media_type'
         type: '*'
         subtype: '*'
@@ -34,7 +36,7 @@ module.exports = class ContentType extends AbstractBase
 
   _parseSubtype: (string) ->
     string = @_subtypeObjToString string  unless _.isString string
-    parsed = httpbis_p2.media_subtype string
+    parsed = media_subtype({startRule: 'media_subtype'}) string
     return string  unless parsed
     parsed.subtype = string
     parsed

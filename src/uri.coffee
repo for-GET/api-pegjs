@@ -6,7 +6,7 @@ Hostname = require './uri/Hostname'
 
 module.exports = class URI extends AbstractBase
   _type: 'URI'
-  _parser: rfc3986_uri.URI
+  _parser: rfc3986_uri {startRule: 'URI'}
 
 
   _defaultAst: () ->

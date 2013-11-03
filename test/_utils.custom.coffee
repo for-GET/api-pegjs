@@ -41,30 +41,31 @@ module.exports.loadTestcaseCallback = ({file, name, content}) ->
   content
 
 
-module.exports.runTestcase = (parser, testcases) ->
+module.exports.runTestcase = (module, testcases) ->
   () ->
     for {file, name, content} in testcases
       describe name, do () ->
-        parser_ = parser
+        module_ = module
         name_ = name
         content_ = content
         () ->
           for [description, input, expected] in content_
             inputDesc = input.toString()#.replace("\r", "").replace("\n", "").substr 0, 50
             it "#{description} (#{inputDesc})", do () ->
-              parser__ = parser_
+              module__ = module_
               name__ = name_
               input__ = input
               expected__ = expected
               () ->
                 if expected__ isnt undefined
-                  actual = parser__[name__] input__
+                  actual = module__({startRule: name__}) input__
                   actual = JSON.parse JSON.stringify actual
                   actual.should.eql expected__
                 else
                   fun = () ->
-                    parser__[name__] input__
+                    module__({startRule: name__}) input__
                   fun.should.Throw()
+
 
 module.exports.parserShouldNotThrow = ({parser, input}) ->
   () ->

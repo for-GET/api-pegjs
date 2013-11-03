@@ -7,7 +7,7 @@ module.exports = class Accept extends AbstractBase
   @mixin MixinAccept
 
   _AcceptItemClass: AcceptItem
-  _parser: httpbis_p2.Accept
+  _parser: httpbis_p2 {startRule: 'Accept'}
   _type: 'Accept'
 
 

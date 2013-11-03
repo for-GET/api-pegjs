@@ -98,12 +98,12 @@ describe 'pool.http_samples', () ->
   # HTTP_version
   http_sample_it {
     section: 'request.version'
-    parser: parsers.httpbis_p1 {startRule: 'version'}
+    parser: parsers.httpbis_p1 {startRule: 'HTTP_version'}
     inputs: testcases.request.version
   }
   http_sample_it {
     section: 'response.version'
-    parser: parsers.httpbis_p1 {startRule: 'version'}
+    parser: parsers.httpbis_p1 {startRule: 'HTTP_version'}
     inputs: testcases.request.version
   }
   # status_code
