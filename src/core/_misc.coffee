@@ -11,7 +11,7 @@ module.exports = _.assign {}, misc, {
 
   createModule: ({PEG, initializer, rules, mixins}) ->
     mixins ?= []
-    _.defaults rules, mixin.rules  for mixin in mixins
+    _.defaults rules, mixin  for mixin in mixins
     mod = ({startRule, options}) ->
       options ?= {}
       _.assign options, {
