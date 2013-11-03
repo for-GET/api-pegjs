@@ -2,12 +2,12 @@ fs = require 'fs'
 path = require 'path'
 _ = require 'lodash'
 glob = require 'glob'
-pctEncode = require 'pct-encode'
 testPoolRoot = path.resolve './test.pool'
 
 
 module.exports = {
-  pctEncode
+  thisModule: require '../'
+  pctEncode: require 'pct-encode'
 }
 
 module.exports.loadTestcases = ({dir, cb, pattern}) ->

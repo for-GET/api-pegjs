@@ -1,7 +1,8 @@
 {
   should
+  thisModule
 } = require '../../_utils'
-AcceptItem = require('../../../').http.headers.AcceptItem
+AcceptItem = thisModule['http/headers/AcceptItem']
 
 describe 'AcceptItem', () ->
   it 'should have getters', () ->
