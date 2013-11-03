@@ -30,6 +30,7 @@ module.exports = class ContentType extends AbstractBase
 
   _parse: (string) ->
     parsed = super
+    return  unless parsed
     _.assign parsed.value, @_parseSubtype parsed.value.subtype
     parsed
 
@@ -176,9 +177,9 @@ module.exports = class ContentType extends AbstractBase
       } = param
       if value?
         try
-          httpbis_p1.token value
+          httpbis_p1({startRule: 'token'}) value
         catch e
-          value = "\"value\""
+          value = "\"#{value}\""
       value = "=#{value}"  if value?
       result.push "#{attribute}#{value}"
     result = result.join @_paramSep

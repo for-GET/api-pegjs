@@ -5,14 +5,6 @@ module.exports = class MixinAcceptItem extends AbstractBase
   _ItemClass: undefined
 
 
-  _parse: (string) ->
-    parsed = super
-    return  unless parsed
-    media = parsed.media_range
-    _.assign media, @_parseSubtype media.subtype
-    parsed
-
-
   Object.defineProperty @::, 'q',
     get: () ->
       @acceptParam('q') || '1'

@@ -23,6 +23,13 @@ module.exports = class AcceptItem extends ContentType
     }
 
 
+  _parse: (string) ->
+    parsed = ContentType.__super__._parse.call @, string
+    return  unless parsed
+    _.assign parsed.media_range, @_parseSubtype parsed.media_range.subtype
+    parsed
+
+
   Object.defineProperty @::, 'media',
     get: () ->
       @ast.media_range
