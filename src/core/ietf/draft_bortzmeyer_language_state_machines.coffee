@@ -1,13 +1,7 @@
 {
-  _
-  buildParser
+  createModule
 } = require './_misc'
 PEG = require('core-pegjs')['ietf/draft_bortzmeyer_language_state_machines']
-
-
-startRules = [
-  'state_machine'
-]
 
 
 rules =
@@ -66,4 +60,4 @@ rules =
     }
 
 
-module.exports = buildParser {PEG, rules, startRules}
+module.exports = createModule {PEG, rules}
