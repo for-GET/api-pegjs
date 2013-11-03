@@ -1,7 +1,7 @@
 {
   createModule
-  zeroorMoreHTTP
-  oneorMoreHTTP
+  zeroOrMoreHTTP
+  oneOrMoreHTTP
 } = require './_misc'
 PEG = require('core-pegjs')['ietf/draft_ietf_httpbis_p2_semantics']
 
@@ -33,10 +33,10 @@ rules =
     }
 
 
-  Content_Encoding: oneorMoreHTTP
+  Content_Encoding: oneOrMoreHTTP
 
 
-  Content_Language: oneorMoreHTTP
+  Content_Language: oneOrMoreHTTP
 
 
   Content_Location: () ->
@@ -46,7 +46,7 @@ rules =
     }
 
 
-  Expect: oneorMoreHTTP
+  Expect: oneOrMoreHTTP
 
 
   expectation: () ->
@@ -81,7 +81,7 @@ rules =
     }
 
 
-  Accept: zeroorMoreHTTP
+  Accept: zeroOrMoreHTTP
 
 
   Accept_item_: () ->
@@ -119,7 +119,7 @@ rules =
     }
 
 
-  Accept_Charset: oneorMoreHTTP
+  Accept_Charset: oneOrMoreHTTP
 
 
   Accept_Charset_item_: () ->
@@ -130,7 +130,7 @@ rules =
     }
 
 
-  Accept_Encoding: zeroorMoreHTTP
+  Accept_Encoding: zeroOrMoreHTTP
 
 
   Accept_Encoding_item_: () ->
@@ -141,7 +141,7 @@ rules =
     }
 
 
-  Accept_Language: oneorMoreHTTP
+  Accept_Language: oneOrMoreHTTP
 
 
   Accept_Language_item_: () ->
@@ -249,11 +249,11 @@ rules =
         __type: __ruleName
         field_name: "*"
       }
-    oneorMoreHTTP
+    oneOrMoreHTTP
   ]
 
 
-  Allow: oneorMoreHTTP
+  Allow: oneOrMoreHTTP
 
 
   Server: () ->

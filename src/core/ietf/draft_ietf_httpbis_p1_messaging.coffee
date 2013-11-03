@@ -1,6 +1,6 @@
 {
   createModule
-  oneorMoreHTTP
+  oneOrMoreHTTP
 } = require './_misc'
 PEG = require('core-pegjs')['ietf/draft_ietf_httpbis_p1_messaging']
 
@@ -77,7 +77,7 @@ rules =
     }
 
 
-  Transfer_Encoding: oneorMoreHTTP
+  Transfer_Encoding: oneOrMoreHTTP
 
 
   transfer_extension: () ->
@@ -98,7 +98,7 @@ rules =
     }
 
 
-  Trailer: oneorMoreHTTP
+  Trailer: oneOrMoreHTTP
 
 
   # TE
@@ -115,7 +115,7 @@ rules =
     }
 
 
-  Via: oneorMoreHTTP
+  Via: oneOrMoreHTTP
 
 
   Via_item_: () ->
@@ -149,10 +149,10 @@ rules =
   ]
 
 
-  Connection: oneorMoreHTTP
+  Connection: oneOrMoreHTTP
 
 
-  Upgrade: oneorMoreHTTP
+  Upgrade: oneOrMoreHTTP
 
 
   protocol: () ->
