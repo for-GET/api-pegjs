@@ -21,6 +21,7 @@ module.exports = {
         }
       }
 
+      throw new Error 'Unknown startRule'  unless _.has rules, startRule
       {parse} = pegjs.buildParser PEG, options
 
       (input) ->
