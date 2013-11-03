@@ -1,37 +1,9 @@
 {
-  _
-  buildParser
+  createModule
   zeroorMoreHTTP
   oneorMoreHTTP
 } = require './_misc'
 PEG = require('core-pegjs')['ietf/draft_ietf_httpbis_p2_semantics']
-
-startRules = [
-  # 'From'
-  'Accept'
-  'media_range'
-  'Accept_Charset'
-  'Accept_Encoding'
-  'Accept_Language'
-  'Accept_item_'
-  'Allow'
-  'Content_Encoding'
-  'Content_Language'
-  'Content_Location'
-  'Content_Type'
-  'Date'
-  'Expect'
-  'HTTP_date'
-  'Location'
-  'Max_Forwards'
-  'media_type'
-  'Referer'
-  'Retry_After'
-  'Server'
-  'User_Agent'
-  'Vary'
-  'media_type'
-]
 
 
 rules =
@@ -295,9 +267,7 @@ rules =
     }
 
 
-rules = _.defaults(
-  rules,
+mixins = [
   require('./draft_ietf_httpbis_p1_messaging')._.rules
-)
-
-module.exports = buildParser {PEG, rules, startRules}
+]
+module.exports = createModule {PEG, rules, mixins}

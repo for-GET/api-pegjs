@@ -1,12 +1,8 @@
 {
   _
-  buildParser
+  createModule
 } = require '../_misc'
 PEG = require('core-pegjs')['for-get/media_subtype']
-
-startRules = [
-  'media_subtype'
-]
 
 
 rules =
@@ -42,9 +38,7 @@ rules =
   ]
 
 
-rules = _.defaults(
-  rules,
+mixins = [
   require('../ietf/draft_ietf_httpbis_p2_semantics')._.rules
-)
-
-module.exports = buildParser {PEG, rules, startRules}
+]
+module.exports = createModule {PEG, rules, mixins}

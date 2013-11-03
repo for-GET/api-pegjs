@@ -7,42 +7,72 @@ module.exports = {
   _
 
 
+  createModule: ({PEG, initializer, rules, mixins}) ->
+    mixins ?= []
+    _.defaults rules, mixin.rules  for mixin in mixins
+    mod = ({startRule, options}) ->
+      options ?= {}
+      _.assign options, {
+        allowedStartRules: [startRule]
+        plugins: [overrideAction]
+        overrideActionPlugin: {
+          initializer
+          rules
+        }
+      }
+
+      {parse} = pegjs.buildParser PEG, options
+
+      (input) ->
+        parse input, {startRule}
+
+    mod._ = {
+      PEG
+      initializer
+      rules
+    }
+
+    mod
+
+
   buildParser: ({PEG, initializer, rules, startRules}) ->
-    startRules ?= []
-    alias = {}
-    startRules = startRules.map (rule) ->
-      alias[rule] = rule
-      return rule  unless Array.isArray rule
-      [rule, aliasName] = rule
-      alias[rule] = aliasName
-      rule
-    options = {
-      allowedStartRules: startRules
-      plugins: [overrideAction]
-      overrideActionPlugin: {
-        rules
-        initializer
+    defaultStartRules = startRules
+    (args = {}) ->
+      {startRules} = args
+      startRules ?= defaultStartRules or []
+      alias = {}
+      startRules = startRules.map (rule) ->
+        alias[rule] = rule
+        return rule  unless Array.isArray rule
+        [rule, aliasName] = rule
+        alias[rule] = aliasName
+        rule
+      options = {
+        allowedStartRules: startRules
+        plugins: [overrideAction]
+        overrideActionPlugin: {
+          initializer
+          rules
+        }
       }
-    }
 
-    {parse} = pegjs.buildParser PEG, options
+      {parse} = pegjs.buildParser PEG, options
 
-    parser = {
-      _: {
-        PEG
-        initializer
-        rules
-        startRules
+      parser = {
+        _: {
+          PEG
+          initializer
+          rules
+          startRules
+        }
       }
-    }
 
-    for rule, aliasName of alias
-      parser[aliasName] = do () ->
-        startRule = rule
-        (input) ->
-          parse input, {startRule}
-
-    parser
+      for rule, aliasName of alias
+        parser[aliasName] = do () ->
+          startRule = rule
+          (input) ->
+            parse input, {startRule}
+      parser
 
 
   funToString: (fun) ->

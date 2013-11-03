@@ -1,30 +1,8 @@
 {
-  _
-  buildParser
+  createModule
   oneorMoreHTTP
 } = require './_misc'
 PEG = require('core-pegjs')['ietf/draft_ietf_httpbis_p1_messaging']
-
-
-startRules = [
-  # TE
-  'Connection'
-  'Host'
-  'Trailer'
-  'Transfer_Encoding'
-  'Upgrade'
-  'Via'
-  'method'
-  'reason_phrase'
-  'request_line'
-  'request_target'
-  'status_code'
-  'token'
-  ['HTTP_message', 'message']
-  ['HTTP_version', 'version']
-  ['header_field', 'header']
-  ['status_line', 'response_line']
-]
 
 
 rules =
@@ -185,8 +163,7 @@ rules =
     }
 
 
-rules = _.defaults(
-  rules,
+mixins = [
   require('./rfc3986_uri')._.rules
-)
-module.exports = buildParser {PEG, rules, startRules}
+]
+module.exports = createModule {PEG, rules, mixins}

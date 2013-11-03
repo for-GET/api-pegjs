@@ -1,13 +1,7 @@
 {
-  _
-  buildParser
+  createModule
 } = require './_misc'
 PEG = require('core-pegjs')['ietf/rfc5646_language']
-
-
-startRules = [
-  'language'
-]
 
 
 rules =
@@ -36,4 +30,5 @@ rules =
   extlang: () ->
     __result
 
-module.exports = buildParser {PEG, rules, startRules}
+
+module.exports = createModule {PEG, rules}

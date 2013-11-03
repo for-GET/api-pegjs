@@ -1,20 +1,7 @@
 {
-  buildParser
+  createModule
 } = require './_misc'
 PEG = require('core-pegjs')['ietf/rfc3986_uri']
-
-
-startRules = [
-  'URI'
-  'URI_reference'
-  'authority'
-  'relative_ref'
-  ['hostname', 'uri_host']
-  'IPv6address'
-  'IPv4address'
-  'reg_name'
-  'absolute_URI'
-]
 
 
 rules =
@@ -164,4 +151,4 @@ rules =
     }
 
 
-module.exports = buildParser {PEG, rules, startRules}
+module.exports = createModule {PEG, rules}
