@@ -1,7 +1,7 @@
 _ = require 'lodash'
 rfc3986_uri = require './core/ietf/rfc3986_uri'
 AbstractBase = require './abstract/Base'
-Hostname = require './uri/Hostname'
+Hostname = require './Hostname'
 
 
 module.exports = class URI extends AbstractBase
