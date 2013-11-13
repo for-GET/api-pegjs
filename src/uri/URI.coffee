@@ -1,6 +1,6 @@
 _ = require 'lodash'
-rfc3986_uri = require './core/ietf/rfc3986_uri'
-AbstractBase = require './abstract/Base'
+rfc3986_uri = require '../core/ietf/rfc3986_uri'
+AbstractBase = require '../abstract/Base'
 Hostname = require './Hostname'
 
 

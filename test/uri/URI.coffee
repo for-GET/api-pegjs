@@ -1,7 +1,7 @@
 {
   should
-} = require './_utils'
-URI = require '../src/uri/URI'
+} = require '../_utils'
+URI = require '../../src/uri/URI'
 
 describe 'URI', () ->
   it 'should parse common URIs', () ->
