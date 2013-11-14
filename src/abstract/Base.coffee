@@ -4,6 +4,7 @@ SuperObject = require './SuperObject'
 module.exports = class AbstractBase extends SuperObject
   _type: '__abstract__'
   ast: undefined
+  source: undefined
 
 
   constructor: (source) ->
@@ -31,10 +32,13 @@ module.exports = class AbstractBase extends SuperObject
   set: (source) ->
     if _.isString source
       @ast = @_parse source
+      @source = _.cloneDeep source
     else if _.isPlainObject(source) and source.__type is @_type
       @ast = source
+      @source = _.cloneDeep source
     else
       @ast = @_defaultAst()
+      @source = undefined
 
 
 
