@@ -1,6 +1,9 @@
 _ = require 'lodash'
 AbstractBase = require '../abstract/Base'
 URI = require '../uri/URI'
+httpWell = require 'know-your-http-well'
+statusWell = httpWell.statusPhrasesToCodes
+phraseWell = httpWell.statusCodesToPhrases
 
 
 module.exports = class Response extends AbstractBase
@@ -26,6 +29,14 @@ module.exports = class Response extends AbstractBase
       @ast.line.status_code
     set: (value) ->
       @ast.line.status_code = value
+      @ast.line.reason_phrase  = phraseWell[value]  if phraseWell[value]?
+
+
+  Object.defineProperty @::, 'status',
+    get: () ->
+      @status_code
+    set: (value) ->
+      @status_code = value
 
 
   Object.defineProperty @::, 'reason_phrase',
@@ -33,6 +44,8 @@ module.exports = class Response extends AbstractBase
       @ast.line.reason_phrase
     set: (value) ->
       @ast.line.reason_phrase = value
+      phraseToken = value.toUpperCase().replace /[^A-Z]/g, '_'
+      @ast.line.status_code = statusWell[phraseToken]  if statusWell[phraseToken]?
 
 
   Object.defineProperty @::, 'version',
@@ -58,15 +71,18 @@ module.exports = class Response extends AbstractBase
 
 
   toString: (args = {}) ->
-    {hideBody} = args
-    hideBody ?= false
+    {split} = args
+    split ?= false
     line = @version + ' ' + @status_code + ' ' + @reason_phrase
     headers = []
     for header in @headers
       {name, value} = header
-      value = value.join ', '  if _.isArray value
-      headers.push "#{name}: #{value}"
+      value = [value]  unless _.isArray value
+      headers.push "#{name}: #{v}"  for v in value
     headers = headers.join '\r\n'
-    result = "#{line}\r\n#{headers}\r\n\r\n"
-    result += "#{@body}\r\n"  unless hideBody
+    return {line, headers, @body}  if split
+    result = line
+    result += "\r\n#{headers}"  if headers.length
+    result += "\r\n\r\n"
+    result += @body
     result
