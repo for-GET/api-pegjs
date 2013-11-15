@@ -57,13 +57,17 @@ module.exports = class Request extends AbstractBase
       @ast.body = value
 
 
-  toString: () ->
-    line = @method + ' ' + @target + ' ' + @version
+  toString: (args = {}) ->
+    {split} = args
+    split ?= false
+    line = @method + ' ' + @target + ' ' + @version + '\r\n'
     headers = []
     for header in @headers
       {name, value} = header
-      value = value.join ', '  if _.isArray value
-      headers.push "#{name}: #{value}"
+      value = [value]  unless _.isArray value
+      headers.push "#{name}: #{v}"  for v in value
+    headers.push ''  if headers.length
     headers = headers.join '\r\n'
-    "#{line}\r\n#{headers}\r\n#{@body}"
-
+    return {line, headers, @body}  if split
+    result = line + headers + @body
+    result

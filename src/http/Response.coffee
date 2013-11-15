@@ -73,16 +73,14 @@ module.exports = class Response extends AbstractBase
   toString: (args = {}) ->
     {split} = args
     split ?= false
-    line = @version + ' ' + @status_code + ' ' + @reason_phrase
+    line = @version + ' ' + @status_code + ' ' + @reason_phrase + '\r\n'
     headers = []
     for header in @headers
       {name, value} = header
       value = [value]  unless _.isArray value
       headers.push "#{name}: #{v}"  for v in value
+    headers.push ''  if headers.length
     headers = headers.join '\r\n'
     return {line, headers, @body}  if split
-    result = line
-    result += "\r\n#{headers}"  if headers.length
-    result += "\r\n\r\n"
-    result += @body
+    result = line + headers + @body
     result
