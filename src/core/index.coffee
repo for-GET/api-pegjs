@@ -49,13 +49,13 @@ module.exports.parsers =
     'HTTP_message': true
   'for-get/response':
     'HTTP_message': true
-  'ietf/draft-ietf-httpbis-p1-messaging':
-    'Content_Type': true
+  'ietf/draft-ietf-httpbis-p1-messaging': {}
   'ietf/draft-ietf-httpbis-p2-semantics':
     'Accept': true
     'Accept_item_': true
     'Accept_Language': true
     'Accept_Language_item_': true
+    'Content_Type': true
     'token': true
   'ietf/rfc3986-uri':
     'hostname': true
