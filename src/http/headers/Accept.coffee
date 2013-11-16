@@ -1,4 +1,11 @@
-_parser = require('../../core-precompiled') {pegModule: 'ietf/draft_ietf_httpbis_p2_semantics', startRule: 'Accept'}
+{
+  _
+  core
+} = require '../../_misc'
+_parser = core {
+  pegModule: 'ietf/draft_ietf_httpbis_p2_semantics'
+  startRule: 'Accept'
+}
 AcceptItem = require './AcceptItem'
 MixinAccept = require './mixin/Accept'
 AbstractBase = require '../../abstract/Base'

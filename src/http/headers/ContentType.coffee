@@ -1,7 +1,19 @@
-_ = require 'lodash'
-_parser = require('../../core-precompiled') {pegModule: 'ietf/draft_ietf_httpbis_p1_messaging', startRule: 'Content_Type'}
-_parserToken = require('../../core-precompiled') {pegModule: 'ietf/draft_ietf_httpbis_p2_semantics', startRule: 'token'}
-_parserMediaSubtype = require('../../core-precompiled') {pegModule: 'for-get/media_subtype', startRule: 'media_subtype'}
+{
+  _
+  core
+} = require '../../_misc'
+_parser = core {
+  pegModule: 'ietf/draft_ietf_httpbis_p1_messaging'
+  startRule: 'Content_Type'
+}
+_parserToken = core {
+  pegModule: 'ietf/draft_ietf_httpbis_p2_semantics'
+  startRule: 'token'
+}
+_parserMediaSubtype = core {
+  pegModule: 'for-get/media_subtype'
+  startRule: 'media_subtype'
+}
 AbstractBase = require '../../abstract/Base'
 
 

@@ -1,12 +1,18 @@
-_ = require 'lodash'
-rfc3986_uri = require '../core/ietf/rfc3986_uri'
+{
+  _
+  core
+} = require '../_misc'
+_parser = core {
+  pegModule: 'ietf/rfc3986_uri'
+  startRule: 'URI'
+}
 AbstractBase = require '../abstract/Base'
 Hostname = require './Hostname'
 
 
 module.exports = class URI extends AbstractBase
   _type: 'URI'
-  _parser: rfc3986_uri {startRule: 'URI'}
+  _parser: _parser
 
 
   _defaultAst: () ->

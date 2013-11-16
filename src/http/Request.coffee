@@ -1,8 +1,13 @@
-_ = require 'lodash'
-_parser = require('../core-precompiled') {pegModule: 'for-get/request', startRule: 'HTTP_message'}
+{
+  _
+  core
+} = require '../_misc'
+_parser = core {
+  pegModule: 'for-get/request'
+  startRule: 'HTTP_message'
+}
 AbstractBase = require '../abstract/Base'
 URI = require '../uri/URI'
-
 
 
 module.exports = class Request extends AbstractBase

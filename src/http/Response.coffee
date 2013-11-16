@@ -1,5 +1,11 @@
-_ = require 'lodash'
-_parser = require('../core-precompiled') {pegModule: 'for-get/response', startRule: 'HTTP_message'}
+{
+  _
+  core
+} = require '../_misc'
+_parser = core {
+  pegModule: 'for-get/response'
+  startRule: 'HTTP_message'
+}
 AbstractBase = require '../abstract/Base'
 URI = require '../uri/URI'
 httpWell = require 'know-your-http-well'

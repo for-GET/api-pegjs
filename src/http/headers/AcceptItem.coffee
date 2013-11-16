@@ -1,5 +1,11 @@
-_ = require 'lodash'
-httpbis_p2 = require '../../core/ietf/draft_ietf_httpbis_p2_semantics'
+{
+  _
+  core
+} = require '../../_misc'
+_parser = core {
+  pegModule: 'ietf/draft_ietf_httpbis_p2_semantics'
+  startRule: 'Accept_item_'
+}
 MixinAcceptItem = require './mixin/AcceptItem'
 ContentType = require './ContentType'
 
@@ -7,7 +13,7 @@ module.exports = class AcceptItem extends ContentType
   @mixin MixinAcceptItem
 
   _ItemClass: ContentType
-  _parser: httpbis_p2 {startRule: 'Accept_item_'}
+  _parser: _parser
   _type: 'Accept_item_'
 
 
