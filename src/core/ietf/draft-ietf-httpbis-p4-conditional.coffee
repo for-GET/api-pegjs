@@ -1,12 +1,12 @@
 {
   createModule
 } = require './_misc'
-PEG = require('core-pegjs')['ietf/draft_ietf_httpbis_p4_conditional']
+PEG = require('core-pegjs')['ietf/draft-ietf-httpbis-p4-conditional']
 
 
 rules = {}
 
 mixins = [
-  require('./draft_ietf_httpbis_p2_semantics')._.rules
+  require('./draft-ietf-httpbis-p2-semantics')._.rules
 ]
 module.exports = createModule {PEG, rules, mixins}

@@ -3,7 +3,7 @@
   core
 } = require '../../_misc'
 _parser = core {
-  pegModule: 'ietf/draft_ietf_httpbis_p2_semantics'
+  pegModule: 'ietf/draft-ietf-httpbis-p2-semantics'
   startRule: 'Accept_item_'
 }
 MixinAcceptItem = require './mixin/AcceptItem'

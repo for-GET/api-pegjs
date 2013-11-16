@@ -3,7 +3,7 @@
   core
 } = require '../../_misc'
 _parser = core {
-  pegModule: 'ietf/draft_ietf_httpbis_p1_messaging'
+  pegModule: 'ietf/draft-ietf-httpbis-p1-messaging'
   startRule: 'Content_Type'
 }
 _parserToken = core {

@@ -1,7 +1,7 @@
 {
   createModule
 } = require './_misc'
-PEG = require('core-pegjs')['ietf/draft_bortzmeyer_language_state_machines']
+PEG = require('core-pegjs')['ietf/draft-bortzmeyer-language-state-machines']
 
 
 rules =

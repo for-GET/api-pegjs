@@ -3,7 +3,7 @@
   zeroOrMoreHTTP
   oneOrMoreHTTP
 } = require './_misc'
-PEG = require('core-pegjs')['ietf/draft_ietf_httpbis_p2_semantics']
+PEG = require('core-pegjs')['ietf/draft-ietf-httpbis-p2-semantics']
 
 
 rules =
@@ -268,6 +268,6 @@ rules =
 
 
 mixins = [
-  require('./draft_ietf_httpbis_p1_messaging')._.rules
+  require('./draft-ietf-httpbis-p1-messaging')._.rules
 ]
 module.exports = createModule {PEG, rules, mixins}

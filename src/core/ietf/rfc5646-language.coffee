@@ -1,7 +1,7 @@
 {
   createModule
 } = require './_misc'
-PEG = require('core-pegjs')['ietf/rfc5646_language']
+PEG = require('core-pegjs')['ietf/rfc5646-language']
 
 
 rules =

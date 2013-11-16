@@ -2,7 +2,7 @@
   _
   createModule
 } = require '../_misc'
-PEG = require('core-pegjs')['for-get/media_subtype']
+PEG = require('core-pegjs')['for-get/media-subtype']
 
 
 rules =

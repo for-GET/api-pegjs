@@ -3,7 +3,7 @@
   core
 } = require '../_misc'
 _parser = core {
-  pegModule: 'ietf/rfc3986_uri'
+  pegModule: 'ietf/rfc3986-uri'
   startRule: 'URI'
 }
 AbstractBase = require '../abstract/Base'

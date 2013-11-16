@@ -1,7 +1,7 @@
 {
   createModule
 } = require './_misc'
-PEG = require('core-pegjs')['ietf/rfc3986_uri']
+PEG = require('core-pegjs')['ietf/rfc3986-uri']
 
 
 rules =

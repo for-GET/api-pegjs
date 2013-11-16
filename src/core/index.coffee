@@ -43,21 +43,21 @@ module.exports.precompile = () ->
 
 
 module.exports.parsers =
-  'for-get/media_subtype':
+  'for-get/media-subtype':
     'media_subtype': true
   'for-get/request':
     'HTTP_message': true
   'for-get/response':
     'HTTP_message': true
-  'ietf/draft_ietf_httpbis_p1_messaging':
+  'ietf/draft-ietf-httpbis-p1-messaging':
     'Content_Type': true
-  'ietf/draft_ietf_httpbis_p2_semantics':
+  'ietf/draft-ietf-httpbis-p2-semantics':
     'Accept': true
     'Accept_item_': true
     'Accept_Language': true
     'Accept_Language_item_': true
     'token': true
-  'ietf/rfc3986_uri':
+  'ietf/rfc3986-uri':
     'hostname': true
     'URI': true
 
