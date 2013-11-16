@@ -1,4 +1,5 @@
 _ = require 'lodash'
+_parser = require('../core-precompiled') {pegModule: 'for-get/response', startRule: 'HTTP_message'}
 AbstractBase = require '../abstract/Base'
 URI = require '../uri/URI'
 httpWell = require 'know-your-http-well'
@@ -8,8 +9,7 @@ phraseWell = httpWell.statusCodesToPhrases
 
 module.exports = class Response extends AbstractBase
   _type: 'HTTP_message'
-  _parser: require('../core/for-get/request') {startRule: 'HTTP_message'}
-
+  _parser: _parser
 
   _defaultAst: () ->
     {

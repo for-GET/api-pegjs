@@ -23,8 +23,13 @@ module.exports = _.assign {}, misc, {
       # FIXME pegjs should throw an exception if startRule is not defined
       {parse} = pegjs.buildParser PEG, options
 
-      (input) ->
+      fun = (input) ->
         parse input, {startRule}
+      fun._ = {
+        PEG
+        options
+      }
+      fun
 
     mod._ = {
       PEG

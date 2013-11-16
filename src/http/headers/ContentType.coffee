@@ -1,14 +1,15 @@
 _ = require 'lodash'
-httpbis_p1 = require '../../core/ietf/draft_ietf_httpbis_p1_messaging'
-httpbis_p2 = require '../../core/ietf/draft_ietf_httpbis_p2_semantics'
-media_subtype = require '../../core/for-get/media_subtype'
-
+_parser = require('../../core-precompiled') {pegModule: 'ietf/draft_ietf_httpbis_p1_messaging', startRule: 'Content_Type'}
+_parserToken = require('../../core-precompiled') {pegModule: 'ietf/draft_ietf_httpbis_p2_semantics', startRule: 'token'}
+_parserMediaSubtype = require('../../core-precompiled') {pegModule: 'for-get/media_subtype', startRule: 'media_subtype'}
 AbstractBase = require '../../abstract/Base'
 
 
 module.exports = class ContentType extends AbstractBase
   _type: 'Content_Type'
-  _parser: httpbis_p2 {startRule: 'Content_Type'}
+  _parser: _parser
+  _parserToken: _parserToken
+  _parserMediaSubtype: _parserMediaSubtype
   _paramSep: ';'
 
 
@@ -37,7 +38,7 @@ module.exports = class ContentType extends AbstractBase
 
   _parseSubtype: (string) ->
     string = @_subtypeObjToString string  unless _.isString string
-    parsed = media_subtype({startRule: 'media_subtype'}) string
+    parsed = @_parserMediaSubtype string
     return string  unless parsed
     parsed.subtype = string
     parsed
@@ -177,7 +178,7 @@ module.exports = class ContentType extends AbstractBase
       } = param
       if value?
         try
-          httpbis_p1({startRule: 'token'}) value
+          @_parserToken value
         catch e
           value = "\"#{value}\""
       value = "=#{value}"  if value?
