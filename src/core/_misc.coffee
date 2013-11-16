@@ -6,9 +6,6 @@ overrideAction = require 'pegjs-override-action'
 
 
 module.exports = _.assign {}, misc, {
-  _
-
-
   createModule: ({PEG, initializer, rules, mixins}) ->
     mixins ?= []
     _.defaults rules, mixin  for mixin in mixins
