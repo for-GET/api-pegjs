@@ -7,11 +7,11 @@ _parser = core {
   startRule: 'Content_Type'
 }
 _parserToken = core {
-  pegModule: 'ietf/draft_ietf_httpbis_p2_semantics'
+  pegModule: 'ietf/draft-ietf-httpbis-p2-semantics'
   startRule: 'token'
 }
 _parserMediaSubtype = core {
-  pegModule: 'for-get/media_subtype'
+  pegModule: 'for-get/media-subtype'
   startRule: 'media_subtype'
 }
 AbstractBase = require '../../abstract/Base'

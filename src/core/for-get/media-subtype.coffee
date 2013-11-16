@@ -39,6 +39,6 @@ rules =
 
 
 mixins = [
-  require('../ietf/draft_ietf_httpbis_p2_semantics')._.rules
+  require('../ietf/draft-ietf-httpbis-p2-semantics')._.rules
 ]
 module.exports = createModule {PEG, rules, mixins}
