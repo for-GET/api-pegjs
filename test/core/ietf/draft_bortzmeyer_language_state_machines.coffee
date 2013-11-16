@@ -4,7 +4,7 @@
   runTestcase
   thisModule
 } = require '../../_utils'
-cosmogol = thisModule['core/ietf/draft_bortzmeyer_language_state_machines']
-testcases = loadTestcases {dir: 'api-pegjs-test/draft_bortzmeyer_language_state_machines'}
+cosmogol = thisModule['core/ietf/draft-bortzmeyer-language-state-machines']
+testcases = loadTestcases {dir: 'api-pegjs-test/draft-bortzmeyer-language-state-machines'}
 
-describe 'draft_bortzmeyer_language_state_machines', runTestcase cosmogol, testcases
+describe 'draft-bortzmeyer-language-state-machines', runTestcase cosmogol, testcases

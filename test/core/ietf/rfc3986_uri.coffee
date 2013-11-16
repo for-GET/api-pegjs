@@ -4,7 +4,7 @@
   runTestcase
   thisModule
 } = require '../../_utils'
-uri = thisModule['core/ietf/rfc3986_uri']
-testcases = loadTestcases {dir: 'api-pegjs-test/rfc3986_uri'}
+uri = thisModule['core/ietf/rfc3986-uri']
+testcases = loadTestcases {dir: 'api-pegjs-test/rfc3986-uri'}
 
-describe 'rfc3986_uri', runTestcase uri, testcases
+describe 'rfc3986-uri', runTestcase uri, testcases

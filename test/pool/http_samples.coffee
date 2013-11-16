@@ -9,9 +9,9 @@ return  unless process.env.TEST_POOLS
 } = require '../_utils'
 parsers =
   uri: require '../../src/core/ietf/rfc3986_uri'
-  httpbis_p1: require '../../src/core/ietf/draft_ietf_httpbis_p1_messaging'
-  httpbis_p2: require '../../src/core/ietf/draft_ietf_httpbis_p2_semantics'
-  httpbis_p4: require '../../src/core/ietf/draft_ietf_httpbis_p4_conditional'
+  httpbis_p1: require '../../src/core/ietf/draft-ietf-httpbis-p1-messaging'
+  httpbis_p2: require '../../src/core/ietf/draft-ietf-httpbis-p2-semantics'
+  httpbis_p4: require '../../src/core/ietf/draft-ietf-httpbis-p4-conditional'
 cb = ({file, name, content}) ->
   content = JSON.parse(content).log.entries
   content
