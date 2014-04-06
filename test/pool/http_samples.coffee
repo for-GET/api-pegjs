@@ -8,7 +8,7 @@ return  unless process.env.TEST_POOLS
   parserShouldNotThrow
 } = require '../_utils'
 parsers =
-  uri: require '../../src/core/ietf/rfc3986_uri'
+  uri: require '../../src/core/ietf/rfc3986-uri'
   httpbis_p1: require '../../src/core/ietf/draft-ietf-httpbis-p1-messaging'
   httpbis_p2: require '../../src/core/ietf/draft-ietf-httpbis-p2-semantics'
   httpbis_p4: require '../../src/core/ietf/draft-ietf-httpbis-p4-conditional'
