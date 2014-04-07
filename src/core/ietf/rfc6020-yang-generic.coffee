@@ -6,25 +6,25 @@ PEG = require('core-pegjs')['ietf/rfc6020-yang-generic']
 
 rules =
   unknown_statement: () ->
-    [prefix, _colon, identifier, args, _optsep, substatements] = __result
+    [prefix, identifier, args, _optsep, substatements] = __result
+    prefix = prefix[0]  if prefix?
     args = args[1]  if args?
-    substatements = undefined  if substatements isnt ';'
-    if substatements?
-      [_curly, maybe_comments, substatements] = substatements
-      cleanSubstatements = []
-      cleanSubstatements.push maybe_comments  if maybe_comments?
-      substatements.forEach (substatement) ->
-        [substatement, maybe_comments2] = substatement
-        cleanSubstatements.push substatement
-        cleanSubstatements.push maybe_comments2  if maybe_comments2?
-      substatements = cleanSubstatements
-    {
-      __type: 'statement'
-      prefix
-      identifier
-      args
-      substatements
+    result = {
+      __prefix: prefix
+      __identifier: identifier
+      __args: args
     }
+    substatements = undefined  if substatements is ';'
+    if substatements?
+      [_curly, _maybe_comments, substatements] = substatements
+      do (prefix, identifier) ->
+        substatements.forEach (substatement) ->
+          [substatement, _maybe_comments] = substatement
+          {__prefix, __identifier} = substatement
+          __identifier = "#{__prefix}:#{__identifier}"  if prefix?
+          result[__identifier] ?= []
+          result[__identifier].push substatement
+    result
 
 
   string_quoted_: [
@@ -33,13 +33,15 @@ rules =
       value = value.map (item) -> item[3]
       head = __result[1]
       value.unshift head
-      value
+      value = undefine  unless value.length
+      value.join ''
     () ->
       value = __result[3] or []
       value = value.map (item) -> item[3]
       head = __result[1]
       value.unshift head
-      value
+      value = undefine  unless value.length
+      value.join ''
   ]
 
 
@@ -52,10 +54,7 @@ rules =
 
 
   comment_: () ->
-    {
-      __type: 'comment'
-      value: __result[1]
-    }
+    undefined
 
 
 rules.unknown_statement2 = rules.unknown_statement
