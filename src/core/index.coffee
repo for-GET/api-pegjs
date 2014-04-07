@@ -1,7 +1,7 @@
 module.exports = ({pegModule, startRule}) ->
   parser = module.exports.parsers[pegModule][startRule]
   return parser()  unless parser is true
-  console.log "WARNING! Building PEG parser on the fly: #{pegModule} #{startRule}"  if /.coffee$/.test module.filename
+  console.error "WARNING! Building PEG parser on the fly: #{pegModule} #{startRule}"  if /.coffee$/.test module.filename
   require("./#{pegModule}") {startRule}
 
 
