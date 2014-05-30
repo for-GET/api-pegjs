@@ -40,46 +40,6 @@ module.exports = _.assign {}, misc, {
     mod
 
 
-  buildParser: ({PEG, initializer, rules, startRules}) ->
-    defaultStartRules = startRules
-    (args = {}) ->
-      {startRules} = args
-      startRules ?= defaultStartRules or []
-      alias = {}
-      startRules = startRules.map (rule) ->
-        alias[rule] = rule
-        return rule  unless Array.isArray rule
-        [rule, aliasName] = rule
-        alias[rule] = aliasName
-        rule
-      options = {
-        allowedStartRules: startRules
-        plugins: [overrideAction]
-        overrideActionPlugin: {
-          initializer
-          rules
-        }
-      }
-
-      {parse} = pegjs.buildParser PEG, options
-
-      parser = {
-        _: {
-          PEG
-          initializer
-          rules
-          startRules
-        }
-      }
-
-      for rule, aliasName of alias
-        parser[aliasName] = do () ->
-          startRule = rule
-          (input) ->
-            parse input, {startRule}
-      parser
-
-
   funToString: (fun) ->
     fun = fun.toString()
     bodyStarts = fun.indexOf('{') + 1
