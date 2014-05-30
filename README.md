@@ -58,7 +58,7 @@ where `module.parser` can be
 
 ## License
 
-[Apache 2.0](LICENSE)
+[UNLICENSE](LICENSE)
 
 
   [1]: https://travis-ci.org/for-GET/api-pegjs
