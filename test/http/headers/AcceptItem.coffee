@@ -2,7 +2,7 @@
   should
   thisModule
 } = require '../../_utils'
-AcceptItem = thisModule['http/headers/AcceptItem']
+AcceptItem = thisModule 'http/headers/AcceptItem'
 
 describe 'AcceptItem', () ->
   it 'should have getters', () ->

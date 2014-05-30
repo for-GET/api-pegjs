@@ -2,7 +2,7 @@
   createModule
   oneOrMoreHTTP
 } = require './_misc'
-PEG = require('core-pegjs')['ietf/draft-ietf-httpbis-p1-messaging']
+grammar = require('core-pegjs') 'ietf/draft-ietf-httpbis-p1-messaging'
 
 
 rules =
@@ -167,4 +167,4 @@ rules =
 mixins = [
   require('./rfc3986-uri')._.rules
 ]
-module.exports = createModule {PEG, rules, mixins}
+module.exports = createModule {grammar, rules, mixins}

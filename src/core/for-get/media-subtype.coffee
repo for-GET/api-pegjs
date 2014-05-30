@@ -2,7 +2,7 @@
   _
   createModule
 } = require '../_misc'
-PEG = require('core-pegjs')['for-get/media-subtype']
+grammar = require('core-pegjs') 'for-get/media-subtype'
 
 
 rules =
@@ -41,4 +41,4 @@ rules =
 mixins = [
   require('../ietf/draft-ietf-httpbis-p2-semantics')._.rules
 ]
-module.exports = createModule {PEG, rules, mixins}
+module.exports = createModule {grammar, rules, mixins}

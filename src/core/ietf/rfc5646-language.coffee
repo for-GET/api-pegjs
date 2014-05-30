@@ -1,7 +1,7 @@
 {
   createModule
 } = require './_misc'
-PEG = require('core-pegjs')['ietf/rfc5646-language']
+grammar = require('core-pegjs') 'ietf/rfc5646-language'
 
 
 rules =
@@ -31,4 +31,4 @@ rules =
     __result
 
 
-module.exports = createModule {PEG, rules}
+module.exports = createModule {grammar, rules}

@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "camelize-http-headers": "~0.0.1",
-    "core-pegjs": "~0.4.0",
+    "core-pegjs": "~0.5.0",
     "glob": "~4.0.0",
     "know-your-http-well": "~0.1.5",
     "lodash": "~2.4.1",

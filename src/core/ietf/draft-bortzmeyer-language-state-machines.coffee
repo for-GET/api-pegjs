@@ -1,7 +1,7 @@
 {
   createModule
 } = require './_misc'
-PEG = require('core-pegjs')['ietf/draft-bortzmeyer-language-state-machines']
+grammar = require('core-pegjs') 'ietf/draft-bortzmeyer-language-state-machines'
 
 
 rules =
@@ -60,4 +60,4 @@ rules =
     }
 
 
-module.exports = createModule {PEG, rules}
+module.exports = createModule {grammar, rules}

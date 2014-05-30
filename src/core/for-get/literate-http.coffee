@@ -2,7 +2,7 @@
   _
   createModule
 } = require '../_misc'
-PEG = require('core-pegjs')['for-get/literate-http']
+grammar = require('core-pegjs') 'for-get/literate-http'
 
 rules =
   litHTTP: [
@@ -90,4 +90,4 @@ mixins = [
   require('../ietf/draft-ietf-httpbis-p1-messaging')._.rules
 ]
 
-module.exports = createModule {PEG, rules, mixins}
+module.exports = createModule {grammar, rules, mixins}
