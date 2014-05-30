@@ -56,7 +56,8 @@ rules =
     }
 
 
-  # status_code
+  status_code: () ->
+    parseInt __result[0], 10
 
 
   # reason_phrase
