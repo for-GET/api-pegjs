@@ -1,6 +1,6 @@
 module.exports = ({pegModule, startRule}) ->
-  parser = module.exports.parsers[pegModule][startRule]
-  return parser()  unless parser is true
+  parser = module.exports.parsers[pegModule]?[startRule]
+  return parser()  unless parser in [true, undefined]
   console.error "WARNING! Building PEG parser on the fly: #{pegModule} #{startRule}"  if /.coffee$/.test module.filename
   require("./#{pegModule}") {startRule}
 
