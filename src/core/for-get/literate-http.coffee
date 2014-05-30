@@ -59,6 +59,9 @@ rules =
   litHTTP_request_header: () ->
     __result[1]
 
+  litHTTP_request_body: () ->
+    __result[1]
+
   litHTTP_response: () ->
     {
       __type: __ruleName
@@ -85,6 +88,10 @@ rules =
 
   litHTTP_response_header: () ->
     __result[1]
+
+  litHTTP_response_body: () ->
+    __result[1]
+
 
 mixins = [
   require('../ietf/draft-ietf-httpbis-p1-messaging')._.rules
