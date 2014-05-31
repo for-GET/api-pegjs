@@ -126,9 +126,18 @@ rules =
   litHTTP_response_body: () ->
     __result[1]
 
+  HTTP_version: () ->
+    text()
 
-mixins = [
-  require('../ietf/draft-ietf-httpbis-p1-messaging')._.rules
-]
+  status_code: () ->
+    parseInt __result[0], 10
 
-module.exports = createModule {grammar, initializer, rules, mixins}
+  header_field: () ->
+    {
+      name: __result[0]
+      value: __result[3]
+    }
+
+
+
+module.exports = createModule {grammar, rules}
