@@ -35,21 +35,21 @@ rules =
 
   litHTTP_fenced_transactions_request: () ->
     {
-      transactions: __result[2]
+      transactions: __result[2]?[0]
       request: __result[3]
     }
 
   litHTTP_fenced_response_transactions: () ->
     {
       response: __result[2]
-      transactions: __result[3]
+      transactions: __result[3]?[0]
     }
 
   litHTTP_transactions: () ->
-    messages = []
-    for [message] in __result[0]
-      messages.push message
-    messages
+    transactions = [__result[0]]
+    for [_separator, transaction] in __result[1]
+      transactions.push transaction
+    transactions
 
   litHTTP_transaction: () ->
     {
