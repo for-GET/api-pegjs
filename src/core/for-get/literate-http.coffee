@@ -13,6 +13,11 @@ rules =
       __result[1]
   ]
 
+  litHTTP_fenced_blocks: () ->
+    transactions = []
+    transactions = transactions.concat(item)  for item in __result[0]
+    transactions
+
   litHTTP_fenced_block: [
     () ->
       __result[0]
