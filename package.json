@@ -14,7 +14,7 @@
     "date",
     "time"
   ],
-  "version": "0.4.9",
+  "version": "0.4.10",
   "repository": {
     "type": "git",
     "url": "git://github.com/for-GET/api-pegjs.git"
