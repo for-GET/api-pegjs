@@ -2,7 +2,7 @@
   _
   createModule
 } = require '../_misc'
-grammar = require('core-pegjs') 'for-get/literate-http-apiary'
+grammar = require('core-pegjs') 'for-get/literate-http-apib'
 
 
 rules = {}
