@@ -60,7 +60,7 @@ rules =
       target: __result[0].target
       HTTP_version: __result[0].HTTP_version
       headers: __result[1]
-      body: __result[2]
+      body: __result[3]
     }
 
   litHTTP_request_line: () ->
@@ -94,7 +94,7 @@ rules =
     __result[1]
 
   litHTTP_request_body: () ->
-    __result[1]
+    __result[0]
 
   litHTTP_response: () ->
     {
@@ -103,10 +103,10 @@ rules =
       status_code: __result[0].status_code
       reason_phrase: __result[0].reason_phrase
       headers: __result[1]
-      body: __result[2]
+      body: __result[3]
     }
 
-  litHTTP_response_line: () ->
+  litHTTP_status_line: () ->
     {
       HTTP_version: __result[1]?[0]
       status_code: __result[2]
@@ -124,7 +124,7 @@ rules =
     __result[1]
 
   litHTTP_response_body: () ->
-    __result[1]
+    __result[0]
 
   HTTP_version: () ->
     text()
