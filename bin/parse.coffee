@@ -16,5 +16,6 @@ data = ''
 input.on 'data', (chunk) ->
   data += chunk
 input.on 'end', () ->
-  result = JSON.stringify parse(data), null, 2
+  result = parse data
+  result = JSON.stringify result, null, 2  unless typeof result is 'string'
   process.stdout.write result
