@@ -48,15 +48,22 @@ rules =
     options.litHTTP_curl("> #{request}#{request_body}\r\n< #{response}#{response_body}")[0]
 
   CURLINFO_TEXTs: () ->
+
   CURLINFO_TEXT: () ->
+
   CURLINFO_OUT: () ->
+
   CURLINFO_IN: () ->
+
   CURLDUMP_OUTs: () ->
     options.parse_data_lines __result[0]
+
   CURLDUMP_INs: () ->
     options.parse_data_lines __result[0]
+
   CURL_DUMP: () ->
     __result[1]
+
   CURL_DUMP_HEX: () ->
     __result[0]
 
