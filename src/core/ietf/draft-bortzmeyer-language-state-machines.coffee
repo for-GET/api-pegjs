@@ -85,7 +85,7 @@ rules =
           y: __result[1][1][1]
       }
     () ->
-      text()
+      __result[0]
   ]
 
 
