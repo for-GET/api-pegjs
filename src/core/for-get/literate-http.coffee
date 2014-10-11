@@ -99,7 +99,7 @@ rules =
     __result[1]
 
   litHTTP_request_body: () ->
-    __result[0]
+    text()
 
   litHTTP_response: () ->
     {
@@ -129,7 +129,7 @@ rules =
     __result[1]
 
   litHTTP_response_body: () ->
-    __result[0]
+    text()
 
   HTTP_version: () ->
     text()
