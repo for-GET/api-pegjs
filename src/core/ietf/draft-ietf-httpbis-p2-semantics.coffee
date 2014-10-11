@@ -77,7 +77,7 @@ rules =
     {
       __type: __ruleName
       attribute: 'q'
-      value:  __result[4]
+      value: __result[4]
     }
 
 
