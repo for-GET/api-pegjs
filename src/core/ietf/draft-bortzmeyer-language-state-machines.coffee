@@ -36,6 +36,15 @@ rules =
     }
 
 
+  transition: () ->
+    {
+      __type: __ruleName
+      states: __result[0]
+      messages: __result[2]
+      next_state: __result[4]
+      action: __result[5]?[1]
+    }
+
   names: () ->
     names = [__result[0]]
     names.push item[1]  for item in __result[1]
@@ -50,14 +59,39 @@ rules =
     __result[1]
 
 
-  transition: () ->
+  dircoords: () ->
+    coords = [__result[1]]
+    coords.push item[1]  for item in __result[2]
     {
-      __type: __ruleName
-      states: __result[0]
-      messages: __result[2]
-      next_state: __result[4]
-      action: __result[5]?[1]
+      from: __result[0]
+      coords: coords
+      to: __result[3]
     }
+
+
+  coordnames: () ->
+    names = [__result[0]]
+    names.push item[1]  for item in __result[1]
+    names
+
+
+  coordname: () ->
+    coord = undefined
+    if __result[1]?
+      coord =
+        x: __result[1][1][0]
+        y: __result[1][1][1]
+    {
+      name: __result[0]
+      coord: coord
+    }
+
+
+  arrow: () ->
+    {
+      coords: __result[2]
+    }
+
 
 
 module.exports = createModule {grammar, rules}
