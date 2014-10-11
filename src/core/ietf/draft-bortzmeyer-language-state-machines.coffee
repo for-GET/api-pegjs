@@ -20,12 +20,20 @@ rules =
     __result[0]
 
 
-  declaration: () ->
-    {
-      __type: __ruleName
-      names: __result[0]
-      value: __result[2]
-    }
+  declaration: [
+    () ->
+      {
+        __type: __ruleName
+        names: __result[0]
+        value: __result[2]
+      }
+    () ->
+      {
+        __type: __ruleName
+        names: __result[0]
+        value: __result[2]
+      }
+  ]
 
 
   assignment: () ->
@@ -75,16 +83,17 @@ rules =
     names
 
 
-  coordname: () ->
-    coord = undefined
-    if __result[1]?
-      coord =
-        x: __result[1][1][0]
-        y: __result[1][1][1]
-    {
-      name: __result[0]
-      coord: coord
-    }
+  coordname: [
+    () ->
+      {
+        name: __result[0]
+        coord:
+          x: __result[1][1][0]
+          y: __result[1][1][1]
+      }
+    () ->
+      text()
+  ]
 
 
   arrow: () ->
