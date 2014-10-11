@@ -20,20 +20,12 @@ rules =
     __result[0]
 
 
-  declaration: [
-    () ->
-      {
-        __type: __ruleName
-        names: __result[0]
-        value: __result[2]
-      }
-    () ->
-      {
-        __type: __ruleName
-        names: __result[0]
-        value: __result[2]
-      }
-  ]
+  declaration: () ->
+    {
+      __type: __ruleName
+      names: __result[0]
+      value: __result[2]
+    }
 
 
   assignment: () ->
@@ -52,6 +44,7 @@ rules =
       next_state: __result[4]
       action: __result[5]?[1]
     }
+
 
   names: () ->
     names = [__result[0]]
