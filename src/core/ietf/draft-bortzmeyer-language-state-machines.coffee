@@ -41,6 +41,7 @@ rules =
       __type: __ruleName
       states: __result[0]
       messages: __result[2]
+      coords: __result[3].coords
       next_state: __result[4]
       action: __result[5]?[1]
     }
@@ -76,28 +77,29 @@ rules =
     () ->
       {
         name: __result[0]
-        top_left:
-          x: __result[2][0]
-          y: __result[2][1]
-        bottom_right:
-          x: __result[4][0]
-          y: __result[4][1]
+        top_left: __result[2]
+        bottom_right: __result[4]
       }
     () ->
       {
         name: __result[0]
-        center:
-          x: __result[2][0]
-          y: __result[2][1]
+        center: __result[2]
       }
     () ->
       __result[0]
   ]
 
 
+  coord: () ->
+    {
+      x: __result[0]
+      y: __result[1]
+    }
+
+
   arrow: () ->
     {
-      coords: __result[2]
+      coords: __result[2]?[0]
     }
 
 
