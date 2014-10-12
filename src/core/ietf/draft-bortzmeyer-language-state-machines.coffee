@@ -60,14 +60,10 @@ rules =
     __result[1]
 
 
-  dircoords: () ->
-    coords = [__result[1]]
-    coords.push item[1]  for item in __result[2]
-    {
-      from: __result[0]
-      coords: coords
-      to: __result[3]
-    }
+  coords: () ->
+    coords = [__result[0]]
+    coords.push item[1]  for item in __result[1]
+    coords
 
 
   coordnames: () ->
@@ -80,9 +76,19 @@ rules =
     () ->
       {
         name: __result[0]
-        coord:
-          x: __result[1][1][0]
-          y: __result[1][1][1]
+        top_left:
+          x: __result[2][0]
+          y: __result[2][1]
+        bottom_right:
+          x: __result[4][0]
+          y: __result[4][1]
+      }
+    () ->
+      {
+        name: __result[0]
+        center:
+          x: __result[2][0]
+          y: __result[2][1]
       }
     () ->
       __result[0]
